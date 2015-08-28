@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func NumberToCurrency(n float64, precision int, unit string) string {
+func NumberToCurrency(n float64, precision int, unit, separator, delimiter string) string {
 
 	precision_pattern := fmt.Sprintf(".%df", precision)
 	number_with_precision := fmt.Sprintf("%"+precision_pattern, float64(n))
@@ -40,9 +40,9 @@ func NumberToCurrency(n float64, precision int, unit string) string {
 		fpf[i], fpf[opp] = fpf[opp], fpf[i]
 	}
 
-	fp_final := strings.Join(fpf, ",")
+	fp_final := strings.Join(fpf, delimiter)
 
-	final_value := fmt.Sprintf("%s%s.%s", unit, fp_final, s[1])
+	final_value := fmt.Sprintf("%s%s%s%s", unit, fp_final, separator, s[1])
 
 	return final_value
 }
