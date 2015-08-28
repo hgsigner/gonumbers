@@ -2,6 +2,7 @@
 
 GoNumbers is an implementation of numbers helpers for Go-lang.
 
+##Number to Currency:
 ```go
 gonumbers.NumberToCurrency(1234567890.50) // "$1,234,567,890.50"
 
