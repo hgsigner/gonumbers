@@ -7,7 +7,29 @@ import (
 	"strings"
 )
 
-func NumberToCurrency(n float64, precision int, unit, separator, delimiter string) string {
+func NumberToCurrency(n float64, args ...interface{}) string {
+
+	precision := 2
+	unit := "$"
+	separator := "."
+	delimiter := ","
+
+	switch len(args) {
+	case 1:
+		precision = args[0].(int)
+	case 2:
+		precision = args[0].(int)
+		unit = args[1].(string)
+	case 3:
+		precision = args[0].(int)
+		unit = args[1].(string)
+		separator = args[2].(string)
+	case 4:
+		precision = args[0].(int)
+		unit = args[1].(string)
+		separator = args[2].(string)
+		delimiter = args[3].(string)
+	}
 
 	precision_pattern := fmt.Sprintf(".%df", precision)
 	number_with_precision := fmt.Sprintf("%"+precision_pattern, float64(n))
