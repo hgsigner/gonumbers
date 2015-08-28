@@ -19,7 +19,7 @@ func NumberToCurrency(n float64, precision int, unit, separator, delimiter strin
 
 	s := strings.Split(strconv.FormatFloat(parsed_value, 'f', precision, 64), ".")
 
-	//It formats the first port of the number
+	//It formats the first part of the number
 
 	fpf := make([]string, 0)
 	times := math.Ceil(float64(len(s[0])) / 3.0)
