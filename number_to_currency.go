@@ -9,6 +9,8 @@ import (
 
 func NumberToCurrency(n float64, args ...interface{}) string {
 
+	//Default values
+
 	precision := 2
 	unit := "$"
 	separator := "."
