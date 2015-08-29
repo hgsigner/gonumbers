@@ -2,13 +2,13 @@ package gonumbers
 
 import "math"
 
-func group_in_thousands(val string) []string {
+func group_in_thousands(val string, precision int) []string {
 	slice := make([]string, 0)
-	times := math.Ceil(float64(len(val)) / 3.0)
+	times := math.Ceil(float64(len(val)) / float64(precision))
 
 	for i := 0; i <= int(times)-1; i++ {
-		from := 0 + (3 * i)
-		to := 3 + (3 * i)
+		from := 0 + (precision * i)
+		to := precision + (precision * i)
 		if to > len(val) {
 			to = len(val)
 		}

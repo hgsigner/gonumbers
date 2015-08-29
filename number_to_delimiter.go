@@ -21,7 +21,7 @@ func NumberToDelimiter(n float64, args ...interface{}) string {
 
 	s := strings.Split(strconv.FormatFloat(n, 'f', -1, 64), ".")
 
-	gt := group_in_thousands(s[0])
+	gt := group_in_thousands(s[0], 3)
 	fp_final := strings.Join(gt, delimiter)
 
 	var final_value string

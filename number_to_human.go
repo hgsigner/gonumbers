@@ -10,12 +10,12 @@ func NumberToHuman(num int) string {
 	// defaults
 
 	separator := "."
-	//precision := 3
+	precision := 3
 
 	// convert number
 
 	val := strconv.Itoa(num)
-	gt := group_in_thousands(val)
+	gt := group_in_thousands(val, precision)
 
 	var units string
 	var final_value string
