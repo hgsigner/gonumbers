@@ -16,6 +16,8 @@ func NumberToHuman(num int) string {
 
 	val := strconv.Itoa(num)
 	gt := group_in_thousands(val, precision)
+	gt_first := gt[0]
+	gt_second := gt[1]
 
 	var units string
 	var final_value string
@@ -56,11 +58,22 @@ func NumberToHuman(num int) string {
 
 	}
 
-	switch len(gt[0]) {
-	case 1:
-		final_value = fmt.Sprintf("%s%s%s %s", gt[0], separator, gt[1], units)
-	case 2, 3:
-		final_value = fmt.Sprintf("%s%s%s %s", gt[0], separator, gt[1][:1], units)
+	second_to_int, err := strconv.Atoi(gt_second)
+	if err != nil {
+		return fmt.Sprintf("Can't convert %s into int.", gt_second)
+	}
+
+	if second_to_int != 0 {
+
+		switch len(gt_first) {
+		case 1:
+			final_value = fmt.Sprintf("%s%s%s %s", gt_first, separator, gt_second, units)
+		case 2, 3:
+			final_value = fmt.Sprintf("%s%s%s %s", gt_first, separator, gt_second[:1], units)
+		}
+
+	} else {
+		final_value = fmt.Sprintf("%s %s", gt_first, units)
 	}
 
 	return final_value
