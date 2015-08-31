@@ -3,6 +3,9 @@
 GoNumbers is an implementation of numbers helpers for Go-lang.
 
 ##Number to Currency:
+
+Options: unit, precision, separator, delimiter
+
 ```go
 gonumbers.NumberToCurrency(1234567890.50) // "$1,234,567,890.50"
 
@@ -14,6 +17,9 @@ gonumbers.NumberToCurrency(1234567890.50, "precision:2", "unit:$", "separator.",
 ```
 
 ##Number to Delimiter:
+
+Options: separator, delimiter
+
 ```go
 gonumbers.NumberToDelimiter(1234567890) // "1,234,567,890"
 
@@ -25,6 +31,9 @@ gonumbers.NumberToDelimiter(1234567890.34, "separator:.", "delimiter:") // "1234
 ```
 
 ##Number to Human:
+
+Options: separator, delimiter
+
 ```go
 gonumbers.NumberToHuman(1234) // "1.234 Thousand"
 
