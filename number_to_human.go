@@ -14,7 +14,15 @@ func NumberToHuman(num int, args ...interface{}) string {
 
 	// defaults
 
-	separator, precision := func_params(args...)
+	_, separator, precision, _ := func_params(args...)
+
+	if separator == "$notset$" {
+		separator = "."
+	}
+
+	if precision == 0 {
+		precision = 3
+	}
 
 	// convert number
 

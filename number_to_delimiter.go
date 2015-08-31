@@ -8,15 +8,16 @@ import (
 
 func NumberToDelimiter(n float64, args ...interface{}) string {
 
-	separator := "."
-	delimiter := ","
+	// defaults
 
-	switch len(args) {
-	case 1:
-		separator = args[0].(string)
-	case 2:
-		separator = args[0].(string)
-		delimiter = args[1].(string)
+	_, separator, _, delimiter := func_params(args...)
+
+	if separator == "$notset$" {
+		separator = "."
+	}
+
+	if delimiter == "$notset$" {
+		delimiter = ","
 	}
 
 	s := strings.Split(strconv.FormatFloat(n, 'f', -1, 64), ".")

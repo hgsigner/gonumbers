@@ -41,30 +41,35 @@ func group_in_thousands(val string, precision int) []string {
 }
 
 func func_params(args ...interface{}) (
+	unit string,
 	separator string,
 	precision int,
+	delimiter string,
 ) {
 
 	// Defaults
 
-	separator = "."
-	precision = 3
+	unit = "$notset$"
+	separator = "$notset$"
+	precision = 0
+	delimiter = "$notset$"
 
 	// Get values
 
 	for _, item := range args {
 		opt := strings.SplitN(item.(string), ":", 2)
 		switch opt[0] {
+		case "unit":
+			unit = opt[1]
 		case "separator":
-			_, err := fmt.Sscanf(item.(string), "separator:%s", &separator)
-			if err != nil {
-				break
-			}
+			separator = opt[1]
 		case "precision":
 			_, err := fmt.Sscanf(item.(string), "precision:%d", &precision)
 			if err != nil {
 				break
 			}
+		case "delimiter":
+			delimiter = opt[1]
 		}
 	}
 

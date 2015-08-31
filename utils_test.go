@@ -71,16 +71,22 @@ func TestGroupInThousands(t *testing.T) {
 func TestFuncParams(t *testing.T) {
 	a := assert.New(t)
 
-	s1, p1 := func_params()
-	a.Equal(".", s1)
-	a.Equal(3, p1)
+	u1, s1, p1, d1 := func_params()
+	a.Equal("$notset$", u1)
+	a.Equal("$notset$", s1)
+	a.Equal(0, p1)
+	a.Equal("$notset$", d1)
 
-	s2, p2 := func_params("separator:.", "precision:20")
+	u2, s2, p2, d2 := func_params("separator:.", "precision:20")
+	a.Equal("$notset$", u2)
 	a.Equal(".", s2)
 	a.Equal(20, p2)
+	a.Equal("$notset$", d2)
 
-	s3, p3 := func_params("precision:1", "separator::")
-	a.Equal(":", s3)
-	a.Equal(1, p3)
+	u3, s3, p3, d3 := func_params("delimiter:,", "precision:3", "separator:.", "unit:$")
+	a.Equal("$", u3)
+	a.Equal(".", s3)
+	a.Equal(3, p3)
+	a.Equal(",", d3)
 
 }

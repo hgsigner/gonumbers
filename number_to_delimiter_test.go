@@ -14,11 +14,11 @@ func Test_NumberToDelimiter(t *testing.T) {
 		NumberToDelimiter(1234567890))
 
 	a.Equal("1,234,567,890.506",
-		NumberToDelimiter(1234567890.506))
+		NumberToDelimiter(1234567890.506, "separator:.", "delimiter:,"))
 
 	a.Equal("1:234:567:890-34",
-		NumberToDelimiter(1234567890.34, "-", ":"))
+		NumberToDelimiter(1234567890.34, "separator:-", "delimiter::"))
 
 	a.Equal("1234567890.34",
-		NumberToDelimiter(1234567890.34, ".", ""))
+		NumberToDelimiter(1234567890.34, "separator:.", "delimiter:"))
 }

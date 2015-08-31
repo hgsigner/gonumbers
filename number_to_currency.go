@@ -10,26 +10,22 @@ func NumberToCurrency(n float64, args ...interface{}) string {
 
 	//Default values
 
-	precision := 2
-	unit := "$"
-	separator := "."
-	delimiter := ","
+	unit, separator, precision, delimiter := func_params(args...)
 
-	switch len(args) {
-	case 1:
-		precision = args[0].(int)
-	case 2:
-		precision = args[0].(int)
-		unit = args[1].(string)
-	case 3:
-		precision = args[0].(int)
-		unit = args[1].(string)
-		separator = args[2].(string)
-	case 4:
-		precision = args[0].(int)
-		unit = args[1].(string)
-		separator = args[2].(string)
-		delimiter = args[3].(string)
+	if unit == "$notset$" {
+		unit = "$"
+	}
+
+	if separator == "$notset$" {
+		separator = "."
+	}
+
+	if precision == 0 {
+		precision = 2
+	}
+
+	if delimiter == "$notset$" {
+		delimiter = ","
 	}
 
 	precision_pattern := fmt.Sprintf(".%df", precision)
