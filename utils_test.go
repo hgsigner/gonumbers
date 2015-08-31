@@ -53,12 +53,34 @@ func TestGroupInThousands(t *testing.T) {
 		{
 			in:        "123",
 			precision: 4,
-			out:       []string{"123"},
+			out:       []string{"0.0123"},
+		},
+		{
+			in:        "123",
+			precision: 5,
+			out:       []string{"0.00123"},
 		},
 	}
 
 	for _, item := range tests {
 		a.Equal(item.out, group_in_thousands(item.in, item.precision))
 	}
+
+}
+
+func TestFuncParams(t *testing.T) {
+	a := assert.New(t)
+
+	s1, p1 := func_params()
+	a.Equal(".", s1)
+	a.Equal(3, p1)
+
+	s2, p2 := func_params("separator:.", "precision:20")
+	a.Equal(".", s2)
+	a.Equal(20, p2)
+
+	s3, p3 := func_params("precision:1", "separator::")
+	a.Equal(":", s3)
+	a.Equal(1, p3)
 
 }
