@@ -32,28 +32,28 @@ gonumbers.NumberToDelimiter(1234567890.34, "separator:.", "delimiter:") // "1234
 
 ##Number to Human:
 
-**Options:** separator, delimiter
+**Options:** separator, presicion
 
 ```go
-gonumbers.NumberToHuman(1234) // "1.234 Thousand"
+gonumbers.NumberToHuman(123) // "123"
+
+gonumbers.NumberToHuman(1234) // "1.23 Thousand"
 
 gonumbers.NumberToHuman(12345) // "12.3 Thousand"
 
-gonumbers.NumberToHuman(1234, "separator:,") // "1,234 Thousand"
+gonumbers.NumberToHuman(1234567) // "1.23 Million"
 
-gonumbers.NumberToHuman(1234567) // "1.234 Million"
+gonumbers.NumberToHuman(1234567890) // "1.23 Billion"
 
-gonumbers.NumberToHuman(12345678) // "12.3 Million"
+gonumbers.NumberToHuman(1234567890123) // "1.23 Trillion"
 
-gonumbers.NumberToHuman(123456789) // "123.4 Million"
+gonumbers.NumberToHuman(1234567890123456) // "1.23 Quadrillion"
 
-gonumbers.NumberToHuman(123000000) // "123 Million"
+gonumbers.NumberToHuman(489939, "precision:2") // "490 Thousand"
 
-gonumbers.NumberToHuman(1234, "precision:4") // "1234"
+gonumbers.NumberToHuman(489939, "precision:4") // "489.9 Thousand"
 
-gonumbers.NumberToHuman(1234, "precision:5") // "0.01234"
-
-gonumbers.NumberToHuman(1234, "precision:5", "separator:,") // "0,01234"
+gonumbers.NumberToHuman(489939, "precision:4", "separator:,") // "489,9 Thousand"
 ```
 
-This is a work in progress.
+**This is a work in progress.**

@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func NumberToHuman(num int, args ...interface{}) string {
+func NumberToHuman(num int64, args ...interface{}) string {
 
 	//Inits
 
@@ -26,13 +26,16 @@ func NumberToHuman(num int, args ...interface{}) string {
 
 	// convert number
 
-	val := strconv.Itoa(num)
-	gt := group_in_thousands(val, precision)
+	val := rounded_number(num, precision)
+	gt := group_in_thousands(val)
 
 	if len(gt) > 1 {
 
 		gt_first = gt[0]
-		gt_second = gt[1]
+
+		if gt_second = strings.Trim(gt[1], "0"); gt_second == "" {
+			gt_second = "0"
+		}
 
 		var units string
 
@@ -74,7 +77,7 @@ func NumberToHuman(num int, args ...interface{}) string {
 
 		second_to_int, err := strconv.Atoi(gt_second)
 		if err != nil {
-			return fmt.Sprintf("Can't convert %s into int.", gt_second)
+			return fmt.Sprintf("Can't convert %T into int.", gt_second)
 		}
 
 		if second_to_int != 0 {

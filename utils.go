@@ -3,19 +3,50 @@ package gonumbers
 import (
 	"fmt"
 	"math"
+	"math/big"
 	"strconv"
 	"strings"
 )
 
-func group_in_thousands(val string, precision int) []string {
-	slice := make([]string, 0)
-	times := math.Ceil(float64(len(val)) / float64(precision))
+// Round number
 
-	if len(val) >= precision {
+func round(v float64) float64 {
+	if math.Abs(v-math.Ceil(v)) <= 0.5 {
+		return math.Ceil(v)
+	}
+	return math.Floor(v)
+}
+
+func digits_count(n float64) float64 {
+	return math.Floor(math.Log10(math.Abs(float64(n))) + 1)
+}
+
+func rounded_number(n int64, precision int) string {
+	dc := digits_count(float64(n))
+	mult := math.Pow10(int(dc) - precision)
+
+	mstring := strconv.FormatFloat(float64(mult), 'f', -1, 64)
+	nstring := strconv.FormatFloat(float64(n), 'f', -1, 64)
+
+	mb, nb := new(big.Rat), new(big.Rat)
+	nb.SetString(nstring)
+	mb.SetString(mstring)
+
+	brb, _ := new(big.Rat).Quo(nb, mb).Float64()
+	rb := round(brb) * mult
+
+	return strconv.FormatFloat(rb, 'f', -1, 64)
+}
+
+func group_in_thousands(val string) []string {
+	slice := make([]string, 0)
+	times := math.Ceil(float64(len(val)) / 3.0)
+
+	if len(val) >= 3 {
 
 		for i := 0; i <= int(times)-1; i++ {
-			from := 0 + (precision * i)
-			to := precision + (precision * i)
+			from := 0 + (3 * i)
+			to := 3 + (3 * i)
 			if to >= len(val) {
 				to = len(val)
 			}
@@ -30,11 +61,13 @@ func group_in_thousands(val string, precision int) []string {
 		}
 
 	} else {
-		expv := math.Pow10(precision)
-		pval, _ := strconv.Atoi(val)
-		res := float64(pval) / expv
-		presult := strconv.FormatFloat(res, 'f', precision, 64)
-		slice = append(slice, presult)
+		// expv := math.Pow10(precision)
+		// pval, _ := strconv.Atoi(val)
+		// res := float64(pval) / expv
+		// presult := strconv.FormatFloat(res, 'f', precision, 64)
+		// slice = append(slice, presult)
+
+		slice = append(slice, val)
 	}
 
 	return slice
