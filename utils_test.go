@@ -60,10 +60,21 @@ func TestFuncParams(t *testing.T) {
 	a.Equal(3, p3)
 	a.Equal(",", d3)
 
+	u4, s4, p4, d4 := func_params("precision:")
+	a.Equal("$notset$", u4)
+	a.Equal("$notset$", s4)
+	a.Equal(0, p4)
+	a.Equal("$notset$", d4)
+
 }
 
 func TestRoundedNumber(t *testing.T) {
 	a := assert.New(t)
-
 	a.Equal("490000", rounded_number(489939, 2))
+}
+
+func TestDigtsCount(t *testing.T) {
+	a := assert.New(t)
+	a.Equal(6, digits_count(123456))
+	a.Equal(10, digits_count(1234567890))
 }

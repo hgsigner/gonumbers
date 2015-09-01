@@ -27,4 +27,5 @@ func Test_NumberToCurrency(t *testing.T) {
 
 	a.Equal("$1.234.567.890,51",
 		NumberToCurrency(1234567890.506, "precision:2", "unit:$", "separator:,", "delimiter:."))
+
 }

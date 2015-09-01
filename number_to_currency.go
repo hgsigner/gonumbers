@@ -31,10 +31,7 @@ func NumberToCurrency(n float64, args ...interface{}) string {
 	precision_pattern := fmt.Sprintf(".%df", precision)
 	number_with_precision := fmt.Sprintf("%"+precision_pattern, float64(n))
 
-	parsed_value, err := strconv.ParseFloat(number_with_precision, 64)
-	if err != nil {
-		fmt.Println(err)
-	}
+	parsed_value, _ := strconv.ParseFloat(number_with_precision, 64)
 
 	s := strings.Split(strconv.FormatFloat(parsed_value, 'f', precision, 64), ".")
 
