@@ -76,7 +76,7 @@ func group_in_thousands(val string) []string {
 func func_params(args ...interface{}) (
 	unit string,
 	separator string,
-	precision int,
+	precision int32,
 	delimiter string,
 ) {
 
@@ -84,7 +84,7 @@ func func_params(args ...interface{}) (
 
 	unit = "$notset$"
 	separator = "$notset$"
-	precision = 0
+	precision = -1
 	delimiter = "$notset$"
 
 	// Get values

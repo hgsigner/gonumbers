@@ -45,7 +45,7 @@ func TestFuncParams(t *testing.T) {
 	u1, s1, p1, d1 := func_params()
 	a.Equal("$notset$", u1)
 	a.Equal("$notset$", s1)
-	a.Equal(0, p1)
+	a.Equal(-1, p1)
 	a.Equal("$notset$", d1)
 
 	u2, s2, p2, d2 := func_params("separator:.", "precision:20")
@@ -63,7 +63,7 @@ func TestFuncParams(t *testing.T) {
 	u4, s4, p4, d4 := func_params("precision:")
 	a.Equal("$notset$", u4)
 	a.Equal("$notset$", s4)
-	a.Equal(0, p4)
+	a.Equal(-1, p4)
 	a.Equal("$notset$", d4)
 
 }

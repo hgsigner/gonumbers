@@ -20,13 +20,13 @@ func NumberToHuman(num int64, args ...interface{}) string {
 		separator = "."
 	}
 
-	if precision == 0 {
+	if precision == -1 {
 		precision = 3
 	}
 
 	// convert number
 
-	val := rounded_number(num, precision)
+	val := rounded_number(num, int(precision))
 	gt := group_in_thousands(val)
 
 	if len(gt) > 1 {
