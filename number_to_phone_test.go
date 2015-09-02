@@ -54,6 +54,10 @@ func Test_NumberToPhone(t *testing.T) {
 	t9, e9 := NumberToPhone(1234555556789, "area_code:true", "country_code:1", "extension:4545", "digits_size:5")
 	a.NoError(e9)
 	a.Equal("+1(1234) 55555-6789 x 4545", t9)
+
+	t10, e10 := NumberToPhone(1234555556789, "area_code:true", "country_code:55", "digits_size:5", "delimiter:,")
+	a.NoError(e10)
+	a.Equal("+55(1234) 55555,6789", t10)
 }
 
 func Test_SplitToPhoneFormat(t *testing.T) {
