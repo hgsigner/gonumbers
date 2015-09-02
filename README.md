@@ -32,7 +32,7 @@ gonumbers.NumberToDelimiter(1234567890.34, "separator:.", "delimiter:") // "1234
 
 ##Number to Human:
 
-**Options:** separator, presicion
+**Options:** separator, precision
 
 ```go
 gonumbers.NumberToHuman(123) // "123"
@@ -54,6 +54,26 @@ gonumbers.NumberToHuman(489939, "precision:2") // "490 Thousand"
 gonumbers.NumberToHuman(489939, "precision:4") // "489.9 Thousand"
 
 gonumbers.NumberToHuman(489939, "precision:4", "separator:,") // "489,9 Thousand"
+```
+
+##Number to Percentage:
+
+**Options:** separator, precision, delimiter
+
+```go
+gonumbers.NumberToPercentage(100) // "100.000%"
+
+gonumbers.NumberToPercentage("98") // "98.000%"
+
+gonumbers.NumberToPercentage(100, "precision:0") // "100%"
+
+gonumbers.NumberToPercentage(1000) // "1,000.000%"
+
+gonumbers.NumberToPercentage(1000, "delimiter:.", "separator:,") // "1.000,000%"
+
+gonumbers.NumberToPercentage(302.24398923423, "precision:5") // "302.24399%"
+
+gonumbers.NumberToPercentage("hahahah") // "0.000%"
 ```
 
 **This is a work in progress.**
