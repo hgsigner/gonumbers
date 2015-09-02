@@ -81,6 +81,7 @@ func func_params(args ...interface{}) (
 	area_code interface{},
 	extension string,
 	country_code string,
+	digits_size interface{},
 ) {
 
 	unit = "$notset$"
@@ -90,6 +91,7 @@ func func_params(args ...interface{}) (
 	area_code = nil
 	extension = "$notset$"
 	country_code = "$notset$"
+	digits_size = nil
 
 	// Get values
 
@@ -117,6 +119,12 @@ func func_params(args ...interface{}) (
 			extension = opt[1]
 		case "country_code":
 			country_code = opt[1]
+		case "digits_size":
+			ds, err := strconv.Atoi(opt[1])
+			if err != nil {
+				break
+			}
+			digits_size = ds
 		}
 	}
 

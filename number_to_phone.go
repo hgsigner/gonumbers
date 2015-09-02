@@ -30,7 +30,7 @@ func NumberToPhone(val interface{}, args ...interface{}) (string, error) {
 
 	// Defaults
 
-	_, _, _, delimiter, area_code, extension, country_code := func_params(args...)
+	_, _, _, delimiter, area_code, extension, country_code, digits_size := func_params(args...)
 
 	if delimiter == "$notset$" {
 		delimiter = "-"
@@ -48,10 +48,14 @@ func NumberToPhone(val interface{}, args ...interface{}) (string, error) {
 		country_code = ""
 	}
 
+	if digits_size == nil {
+		digits_size = 3
+	}
+
 	// Format phone
 	var formated_phone string
 
-	phone_sliced := split_to_phone_format(parsed_val, 3)
+	phone_sliced := split_to_phone_format(parsed_val, digits_size.(int))
 
 	if area_code.(bool) {
 		if len(phone_sliced) == 3 {
@@ -60,15 +64,25 @@ func NumberToPhone(val interface{}, args ...interface{}) (string, error) {
 			phone_rest_joined := strings.Join(phone_sliced, delimiter)
 
 			formated_phone = fmt.Sprintf("(%s) %s", ps_area_code, phone_rest_joined)
-		} else {
+			formated_phone = add_country_code(formated_phone, country_code)
 
+		} else {
+			formated_phone = strings.Join(phone_sliced, delimiter)
+			formated_phone = add_country_code(formated_phone, country_code)
 		}
 	} else {
-		formated_phone = strings.Join(phone_sliced, delimiter)
-	}
 
-	if country_code != "" {
-		formated_phone = fmt.Sprintf("+%s %s", country_code, formated_phone)
+		if country_code != "" {
+			new_phone_slice := make([]string, 0)
+			old_phone_sliced := phone_sliced
+			new_phone_slice = append(new_phone_slice, country_code)
+			new_phone_slice = append(new_phone_slice, old_phone_sliced...)
+			formated_phone = strings.Join(new_phone_slice, delimiter)
+			formated_phone = fmt.Sprintf("+%s", formated_phone)
+		} else {
+			formated_phone = strings.Join(phone_sliced, delimiter)
+		}
+
 	}
 
 	if extension != "" {
@@ -95,5 +109,15 @@ func split_to_phone_format(val string, second_number_len int) []string {
 	final_slice = append(final_slice, phone_last_part)
 
 	return final_slice
+
+}
+
+func add_country_code(phone, cc string) string {
+
+	if cc != "" {
+		return fmt.Sprintf("+%s%s", cc, phone)
+	}
+
+	return phone
 
 }
