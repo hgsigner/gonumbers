@@ -15,5 +15,6 @@ func Test_NumberToPercentage(t *testing.T) {
 	a.Equal("1,000.000%", NumberToPercentage(1000))
 	a.Equal("1.000,000%", NumberToPercentage(1000, "delimiter:.", "separator:,"))
 	a.Equal("302.24399%", NumberToPercentage(302.24398923423, "precision:5"))
+	a.Equal("0.000%", NumberToPercentage("hahahah"))
 
 }
