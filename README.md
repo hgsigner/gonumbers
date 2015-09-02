@@ -2,6 +2,28 @@
 
 GoNumbers is an implementation of numbers helpers for Go-lang.
 
+##Intalling
+
+```
+$ go get github.com/hgsigner/gonumbers
+```
+
+#Usage
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/hgsigner/gonumbers"
+)
+
+func main(){
+	n := gonumbers.NumberToCurrency(1234567890.50)
+	fmt.println(n) // "$1,234,567,890.50"
+}
+```
+
 ##Number to Currency:
 
 **Options:** unit, precision, separator, delimiter
@@ -83,7 +105,7 @@ gonumbers.NumberToPercentage("hahahah") // "0.000%"
 *	**delimiter:** Default is "-"
 *	**area_code:** It prints the area code in ()
 *	**extension:** It appends extension to phone number. Ex. +1(123455) 555-6789 x 4545
-*	**country_code:** It prepend country code to phone number (ex. +1)
+*	**country_code:** It prepends country code to phone number (ex. +1)
 *	**digits_size:** Setup the number of digits of the second part of the phone (digits_count:5). Ex. 1234555556789 => 1234-55555-6789
 
 ```go
