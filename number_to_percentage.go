@@ -26,7 +26,7 @@ func NumberToPercentage(val interface{}, args ...interface{}) string {
 
 	// Defaults
 
-	_, separator, precision, delimiter := func_params(args...)
+	_, separator, precision, delimiter, _, _, _ := func_params(args...)
 
 	if separator == "$notset$" {
 		separator = "."

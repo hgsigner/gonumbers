@@ -78,14 +78,18 @@ func func_params(args ...interface{}) (
 	separator string,
 	precision int32,
 	delimiter string,
+	area_code interface{},
+	extension string,
+	country_code string,
 ) {
-
-	// Defaults
 
 	unit = "$notset$"
 	separator = "$notset$"
 	precision = -1
 	delimiter = "$notset$"
+	area_code = nil
+	extension = "$notset$"
+	country_code = "$notset$"
 
 	// Get values
 
@@ -103,6 +107,16 @@ func func_params(args ...interface{}) (
 			}
 		case "delimiter":
 			delimiter = opt[1]
+		case "area_code":
+			b, err := strconv.ParseBool(opt[1])
+			if err != nil {
+				break
+			}
+			area_code = b
+		case "extension":
+			extension = opt[1]
+		case "country_code":
+			country_code = opt[1]
 		}
 	}
 

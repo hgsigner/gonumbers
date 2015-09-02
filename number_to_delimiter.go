@@ -10,7 +10,7 @@ func NumberToDelimiter(n float64, args ...interface{}) string {
 
 	// defaults
 
-	_, separator, _, delimiter := func_params(args...)
+	_, separator, _, delimiter, _, _, _ := func_params(args...)
 
 	if separator == "$notset$" {
 		separator = "."
