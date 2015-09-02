@@ -2,13 +2,13 @@
 
 GoNumbers is an implementation of numbers helpers for Go-lang.
 
-##Intalling
+##Intalling:
 
 ```
 $ go get github.com/hgsigner/gonumbers
 ```
 
-#Usage
+##Usage:
 
 ```go
 package main
@@ -19,14 +19,31 @@ import (
 )
 
 func main(){
-	n := gonumbers.NumberToCurrency(1234567890.50)
-	fmt.println(n) // "$1,234,567,890.50"
+	n1 := gonumbers.NumberToCurrency(1234567890.50)
+	fmt.println(n1) // "$1,234,567,890.50"
+
+	n2 := gonumbers.NumberToDelimiter(1234567890.34, "separator:-", "delimiter::")
+	fmt.println(n2) // "1:234:567:890-34"
+
+	n3 := gonumbers.NumberToHuman(489939, "precision:4", "separator:,")
+	fmt.println(n3) // "489,9 Thousand"
+
+	n4 := gonumbers.NumberToPercentage(1000, "delimiter:.", "separator:,") 
+	fmt.println(n4) // "1.000,000%"
+
+	n5 := gonumbers.NumberToPhone(1235551234, "country_code:1")
+	fmt.println(n5) // "+1-123-555-1234"
 }
 ```
 
 ##Number to Currency:
 
-**Options:** unit, precision, separator, delimiter
+**Options:**
+
+*	**unit:** 
+*	**precision:** 
+*	**separator:** 
+*	**delimiter:** 
 
 ```go
 gonumbers.NumberToCurrency(1234567890.50) // "$1,234,567,890.50"
@@ -40,7 +57,10 @@ gonumbers.NumberToCurrency(1234567890.50, "precision:2", "unit:$", "separator.",
 
 ##Number to Delimiter:
 
-**Options:** separator, delimiter
+**Options:**
+
+*	**separator:** 
+*	**delimiter:** 
 
 ```go
 gonumbers.NumberToDelimiter(1234567890) // "1,234,567,890"
@@ -54,7 +74,10 @@ gonumbers.NumberToDelimiter(1234567890.34, "separator:.", "delimiter:") // "1234
 
 ##Number to Human:
 
-**Options:** separator, precision
+**Options:**
+
+*	**separator:** 
+*	**precision:** 
 
 ```go
 gonumbers.NumberToHuman(123) // "123"
@@ -80,7 +103,11 @@ gonumbers.NumberToHuman(489939, "precision:4", "separator:,") // "489,9 Thousand
 
 ##Number to Percentage:
 
-**Options:** separator, precision, delimiter
+**Options:**
+
+* **separator:**
+* **precision:**
+* **delimiter:**
 
 ```go
 gonumbers.NumberToPercentage(100) // "100.000%"
