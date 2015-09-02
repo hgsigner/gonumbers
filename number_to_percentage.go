@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+	"strings"
 )
 
 func NumberToPercentage(val interface{}, args ...interface{}) string {
@@ -25,14 +26,32 @@ func NumberToPercentage(val interface{}, args ...interface{}) string {
 
 	// Defaults
 
-	_, _, precision, _ := func_params(args...)
+	_, separator, precision, delimiter := func_params(args...)
+
+	if separator == "$notset$" {
+		separator = "."
+	}
 
 	if precision == -1 {
 		precision = 3
 	}
 
-	formated_val := strconv.FormatFloat(parsed_float, 'f', int(precision), 64)
+	if delimiter == "$notset$" {
+		delimiter = ","
+	}
 
-	return fmt.Sprintf("%s%%", formated_val)
+	formated_val_splited := strings.Split(strconv.FormatFloat(parsed_float, 'f', int(precision), 64), ".")
+	gt := group_in_thousands(formated_val_splited[0])
+	joined_thousands := strings.Join(gt, delimiter)
+
+	var final_value string
+	if len(formated_val_splited) > 1 {
+
+		final_value = fmt.Sprintf("%s%s%s%%", joined_thousands, separator, formated_val_splited[1])
+	} else {
+		final_value = fmt.Sprintf("%s%%", joined_thousands)
+	}
+
+	return final_value
 
 }
