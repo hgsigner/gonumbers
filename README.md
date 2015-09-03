@@ -108,7 +108,7 @@ gonumbers.NumberToHuman(489939, "precision:4", "separator:,") // "489,9 Thousand
 *	**delimiter:** Defines the delimiter for the number (default => ".")
 *	**precision:** Sets precision of the number (default => 3).
 
-*	**prefix:** Defines if it is binary or si (defualt => binary)
+*	**prefix:** Defines if it is binary or si (default => binary)
 
 ```go
 gonumbers.NumberToHumanSize(333) // "333 Bytes"
