@@ -33,6 +33,9 @@ func main(){
 
 	n5 := gonumbers.NumberToPhone(1235551234, "country_code:1")
 	fmt.println(n5) // "+1-123-555-1234"
+
+	n6 := gonumbers.NumberToHumanSize(1234567890)
+	fmt.println(n6) // "1.15 GB"
 }
 ```
 
