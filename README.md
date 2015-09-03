@@ -129,11 +129,11 @@ gonumbers.NumberToPercentage("hahahah") // "0.000%"
 
 **Options:**
 
-*	**delimiter:** Default is "-"
-*	**area_code:** It prints the area code in ()
-*	**extension:** It appends extension to phone number. Ex. +1(123455) 555-6789 x 4545
-*	**country_code:** It prepends country code to phone number (ex. +1)
-*	**digits_size:** Setup the number of digits of the second part of the phone (digits_count:5). Ex. 1234555556789 => 1234-55555-6789
+*	**delimiter:** Defines the delimiter for the number. Default is "-"
+*	**area_code:** Prints the area code in ()
+*	**extension:** Appends extension to phone number. Ex. +1(123) 555-6789 x 4545
+*	**country_code:** Prepends country code to phone number (ex. +1)
+*	**digits_size:** Sets the number of digits of the second part of the phone (digits_count:5). Ex. 1234555556789 => 1234-55555-6789
 
 ```go
 gonumbers.NumberToPhone(5551234) // "555-1234"
