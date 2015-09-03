@@ -30,13 +30,14 @@ func round_with_precision(val float64, precision int) float64 {
 	return round / pow
 }
 
-func digits_count(n float64) float64 {
-	return math.Floor(math.Log10(math.Abs(n)) + 1)
+func digits_count(n float64) int {
+	dc := math.Floor(math.Log10(math.Abs(n)) + 1)
+	return int(dc)
 }
 
 func rounded_number(n float64, precision int) string {
 	dc := digits_count(n)
-	mult := math.Pow10(int(dc) - precision)
+	mult := math.Pow10(dc - precision)
 
 	mstring := strconv.FormatFloat(float64(mult), 'f', -1, 64)
 	nstring := strconv.FormatFloat(n, 'f', -1, 64)
