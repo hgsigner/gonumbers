@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestNumberToHuman(t *testing.T) {
+func Test_NumberToHuman(t *testing.T) {
 
 	a := assert.New(t)
 

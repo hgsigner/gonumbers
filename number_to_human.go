@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func NumberToHuman(num int64, args ...interface{}) string {
+func NumberToHuman(num float64, args ...interface{}) string {
 
 	//Inits
 

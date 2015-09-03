@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGroupInThousands(t *testing.T) {
+func Test_GroupInThousands(t *testing.T) {
 
 	a := assert.New(t)
 
@@ -39,7 +39,7 @@ func TestGroupInThousands(t *testing.T) {
 
 }
 
-func TestFuncParams(t *testing.T) {
+func Test_FuncParams(t *testing.T) {
 	a := assert.New(t)
 
 	u1, s1, p1, d1, ac1, ext1, cc1, ds1 := func_params()
@@ -73,12 +73,12 @@ func TestFuncParams(t *testing.T) {
 
 }
 
-func TestRoundedNumber(t *testing.T) {
+func Test_RoundedNumber(t *testing.T) {
 	a := assert.New(t)
 	a.Equal("490000", rounded_number(489939, 2))
 }
 
-func TestDigtsCount(t *testing.T) {
+func Test_DigtsCount(t *testing.T) {
 	a := assert.New(t)
 	a.Equal(6, digits_count(123456))
 	a.Equal(10, digits_count(1234567890))

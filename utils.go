@@ -18,15 +18,15 @@ func round(v float64) float64 {
 }
 
 func digits_count(n float64) float64 {
-	return math.Floor(math.Log10(math.Abs(float64(n))) + 1)
+	return math.Floor(math.Log10(math.Abs(n)) + 1)
 }
 
-func rounded_number(n int64, precision int) string {
-	dc := digits_count(float64(n))
+func rounded_number(n float64, precision int) string {
+	dc := digits_count(n)
 	mult := math.Pow10(int(dc) - precision)
 
 	mstring := strconv.FormatFloat(float64(mult), 'f', -1, 64)
-	nstring := strconv.FormatFloat(float64(n), 'f', -1, 64)
+	nstring := strconv.FormatFloat(n, 'f', -1, 64)
 
 	mb, nb := new(big.Rat), new(big.Rat)
 	nb.SetString(nstring)
