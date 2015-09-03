@@ -1,6 +1,6 @@
 #GoNumbers
 
-GoNumbers is an implementation of numbers helpers for Go-lang.
+GoNumbers is an implementation of numbers helpers for Go-lang. This project is inspired by the ruby library ActiveSupport::NumberHelper.
 
 ##Intalling:
 
