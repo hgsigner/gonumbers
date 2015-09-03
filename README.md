@@ -101,6 +101,29 @@ gonumbers.NumberToHuman(489939, "precision:4") // "489.9 Thousand"
 gonumbers.NumberToHuman(489939, "precision:4", "separator:,") // "489,9 Thousand"
 ```
 
+##Number to Human Size:
+
+**Options:**
+
+*	**delimiter:** Defines the delimiter for the number (default => ".")
+*	**precision:** Sets precision of the number (default => 3).
+
+*	**prefix:** Defines if it is binary or si (defualt => binary)
+
+```go
+gonumbers.NumberToHumanSize(333) // "333 Bytes"
+
+gonumbers.NumberToHumanSize(1234) // "1.21 KB"
+
+gonumbers.NumberToHumanSize(1234567890) // "1.15 GB"
+
+gonumbers.NumberToHumanSize(1234567, "precision:2") // "1.2 MB"
+
+gonumbers.NumberToHumanSize(1234567, "separator:,", "precision:2") // "1,2 MB"
+
+gonumbers.NumberToHumanSize(524288000, "precision:5") // "500 MB"
+```
+
 ##Number to Percentage:
 
 **Options:**

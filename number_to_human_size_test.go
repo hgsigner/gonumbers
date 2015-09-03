@@ -14,9 +14,9 @@ func Test_NumberToHumanSize(t *testing.T) {
 	a.Contains(twerr1.Error(), "Prefix must be binary or si.")
 	a.Equal("", tw1)
 
-	t1, err1 := NumberToHumanSize(123)
+	t1, err1 := NumberToHumanSize(333)
 	a.NoError(err1)
-	a.Equal("123 Bytes", t1)
+	a.Equal("333 Bytes", t1)
 
 	t2, err2 := NumberToHumanSize(1234)
 	a.NoError(err2)
