@@ -89,7 +89,7 @@ func group_in_thousands(val string) []string {
 func func_params(args ...interface{}) (
 	unit string,
 	separator string,
-	precision int32,
+	precision int,
 	delimiter string,
 	area_code interface{},
 	extension string,

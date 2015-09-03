@@ -40,7 +40,7 @@ func NumberToPercentage(val interface{}, args ...interface{}) string {
 		delimiter = ","
 	}
 
-	formated_val_splited := strings.Split(strconv.FormatFloat(parsed_float, 'f', int(precision), 64), ".")
+	formated_val_splited := strings.Split(strconv.FormatFloat(parsed_float, 'f', precision, 64), ".")
 	gt := group_in_thousands(formated_val_splited[0])
 	joined_thousands := strings.Join(gt, delimiter)
 

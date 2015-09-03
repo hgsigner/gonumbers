@@ -26,7 +26,7 @@ func NumberToHuman(num float64, args ...interface{}) string {
 
 	// convert number
 
-	val := rounded_number(num, int(precision))
+	val := rounded_number(num, precision)
 	gt := group_in_thousands(val)
 
 	if len(gt) > 1 {

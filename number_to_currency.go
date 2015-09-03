@@ -33,7 +33,7 @@ func NumberToCurrency(n float64, args ...interface{}) string {
 
 	parsed_value, _ := strconv.ParseFloat(number_with_precision, 64)
 
-	s := strings.Split(strconv.FormatFloat(parsed_value, 'f', int(precision), 64), ".")
+	s := strings.Split(strconv.FormatFloat(parsed_value, 'f', precision, 64), ".")
 
 	gt := group_in_thousands(s[0])
 	fp_final := strings.Join(gt, delimiter)

@@ -69,9 +69,9 @@ func NumberToHumanSize(n float64, args ...interface{}) (string, error) {
 	// Retrieves number and formats it
 
 	human_size := n / math.Pow(base, float64(exp))
-	rounded_n1 := rounded_number(human_size, int(precision))
+	rounded_n1 := rounded_number(human_size, precision)
 	prounded_n1, _ := strconv.ParseFloat(rounded_n1, 64)
-	rounded_n2 := round_with_precision(prounded_n1, int(precision))
+	rounded_n2 := round_with_precision(prounded_n1, precision)
 
 	final_round_splited := strings.Split(strconv.FormatFloat(rounded_n2, 'f', -1, 64), ".")
 
