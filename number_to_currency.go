@@ -10,7 +10,7 @@ func NumberToCurrency(n float64, args ...interface{}) string {
 
 	//Default values
 
-	unit, separator, precision, delimiter, _, _, _, _ := func_params(args...)
+	unit, separator, precision, delimiter, _, _, _, _, _ := func_params(args...)
 
 	if unit == "$notset$" {
 		unit = "$"

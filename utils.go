@@ -17,6 +17,19 @@ func round(v float64) float64 {
 	return math.Floor(v)
 }
 
+func round_with_precision(val float64, precision int) float64 {
+	var round float64
+	pow := math.Pow(10, float64(precision))
+	digit := pow * val
+	_, div := math.Modf(digit)
+	if div >= 0.5 {
+		round = math.Ceil(digit)
+	} else {
+		round = math.Floor(digit)
+	}
+	return round / pow
+}
+
 func digits_count(n float64) float64 {
 	return math.Floor(math.Log10(math.Abs(n)) + 1)
 }
@@ -82,6 +95,7 @@ func func_params(args ...interface{}) (
 	extension string,
 	country_code string,
 	digits_size interface{},
+	prefix string,
 ) {
 
 	unit = "$notset$"
@@ -92,6 +106,7 @@ func func_params(args ...interface{}) (
 	extension = "$notset$"
 	country_code = "$notset$"
 	digits_size = nil
+	prefix = "$notset$"
 
 	// Get values
 
@@ -125,6 +140,8 @@ func func_params(args ...interface{}) (
 				break
 			}
 			digits_size = ds
+		case "prefix":
+			prefix = opt[1]
 		}
 	}
 

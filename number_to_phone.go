@@ -30,7 +30,7 @@ func NumberToPhone(val interface{}, args ...interface{}) (string, error) {
 
 	// Defaults
 
-	_, _, _, delimiter, area_code, extension, country_code, digits_size := func_params(args...)
+	_, _, _, delimiter, area_code, extension, country_code, digits_size, _ := func_params(args...)
 
 	if delimiter == "$notset$" {
 		delimiter = "-"

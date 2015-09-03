@@ -42,7 +42,7 @@ func Test_GroupInThousands(t *testing.T) {
 func Test_FuncParams(t *testing.T) {
 	a := assert.New(t)
 
-	u1, s1, p1, d1, ac1, ext1, cc1, ds1 := func_params()
+	u1, s1, p1, d1, ac1, ext1, cc1, ds1, px1 := func_params()
 	a.Equal("$notset$", u1)
 	a.Equal("$notset$", s1)
 	a.Equal(-1, p1)
@@ -51,24 +51,25 @@ func Test_FuncParams(t *testing.T) {
 	a.Equal("$notset$", ext1)
 	a.Equal("$notset$", cc1)
 	a.Equal(nil, ds1)
+	a.Equal("$notset$", px1)
 
-	_, s2, p2, _, _, _, _, _ := func_params("separator:.", "precision:20")
+	_, s2, p2, _, _, _, _, _, _ := func_params("separator:.", "precision:20")
 	a.Equal(".", s2)
 	a.Equal(20, p2)
 
-	u3, s3, p3, d3, _, _, _, _ := func_params("delimiter:,", "precision:3", "separator:.", "unit:$")
+	u3, s3, p3, d3, _, _, _, _, _ := func_params("delimiter:,", "precision:3", "separator:.", "unit:$")
 	a.Equal("$", u3)
 	a.Equal(".", s3)
 	a.Equal(3, p3)
 	a.Equal(",", d3)
 
-	_, _, p4, _, _, _, _, _ := func_params("precision:")
+	_, _, p4, _, _, _, _, _, _ := func_params("precision:")
 	a.Equal(-1, p4)
 
-	_, _, _, _, ac5, _, _, _ := func_params("area_code:true")
+	_, _, _, _, ac5, _, _, _, _ := func_params("area_code:true")
 	a.Equal(true, ac5)
 
-	_, _, _, _, ac6, _, _, _ := func_params("area_code:good")
+	_, _, _, _, ac6, _, _, _, _ := func_params("area_code:good")
 	a.Equal(nil, ac6)
 
 }
@@ -76,6 +77,13 @@ func Test_FuncParams(t *testing.T) {
 func Test_RoundedNumber(t *testing.T) {
 	a := assert.New(t)
 	a.Equal("490000", rounded_number(489939, 2))
+}
+
+func Test_RoundedWithPrecision(t *testing.T) {
+	a := assert.New(t)
+	a.Equal(1.2, round_with_precision(1.2000000000000002, 3))
+	a.Equal(1.27, round_with_precision(1.267800001, 2))
+	a.Equal(1.268, round_with_precision(1.267800001, 3))
 }
 
 func Test_DigtsCount(t *testing.T) {

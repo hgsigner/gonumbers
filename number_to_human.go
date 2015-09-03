@@ -14,7 +14,7 @@ func NumberToHuman(num float64, args ...interface{}) string {
 
 	// defaults
 
-	_, separator, precision, _, _, _, _, _ := func_params(args...)
+	_, separator, precision, _, _, _, _, _, _ := func_params(args...)
 
 	if separator == "$notset$" {
 		separator = "."
