@@ -6,27 +6,51 @@ import (
 	"strings"
 )
 
-func NumberToHuman(num float64, args ...interface{}) string {
+type NumberToHuman struct {
+	precision                      int
+	separator                      string
+	isSeparatorSet, isPrecisionSet bool
+}
 
-	//Inits
+type optionNTH func(*NumberToHuman)
+
+func (nth *NumberToHuman) Options(options ...optionNTH) {
+	for _, opt := range options {
+		opt(nth)
+	}
+}
+
+func (nth *NumberToHuman) Separator(s string) optionNTH {
+	return func(nth *NumberToHuman) {
+		nth.separator = s
+		nth.isSeparatorSet = true
+	}
+}
+
+func (nth *NumberToHuman) Precision(p int) optionNTH {
+	return func(nth *NumberToHuman) {
+		nth.precision = p
+		nth.isPrecisionSet = true
+	}
+}
+
+func (nth *NumberToHuman) Perform(n float64) string {
+
+	// Inits
 
 	var final_value, gt_first, gt_second string
 
-	// defaults
+	// Defaults
 
-	_, separator, precision, _, _, _, _, _, _ := func_params(args...)
-
-	if separator == "$notset$" {
-		separator = "."
+	if !nth.isSeparatorSet {
+		nth.separator = "."
 	}
 
-	if precision == -1 {
-		precision = 3
+	if !nth.isPrecisionSet {
+		nth.precision = 3
 	}
 
-	// convert number
-
-	val := rounded_number(num, precision)
+	val := rounded_number(n, nth.precision)
 	gt := group_in_thousands(val)
 
 	if len(gt) > 1 {
@@ -84,9 +108,9 @@ func NumberToHuman(num float64, args ...interface{}) string {
 
 			switch len(gt_first) {
 			case 1:
-				final_value = fmt.Sprintf("%s%s%s %s", gt_first, separator, gt_second, units)
+				final_value = fmt.Sprintf("%s%s%s %s", gt_first, nth.separator, gt_second, units)
 			case 2, 3:
-				final_value = fmt.Sprintf("%s%s%s %s", gt_first, separator, gt_second[:1], units)
+				final_value = fmt.Sprintf("%s%s%s %s", gt_first, nth.separator, gt_second[:1], units)
 			}
 
 		} else {
@@ -94,7 +118,7 @@ func NumberToHuman(num float64, args ...interface{}) string {
 		}
 
 	} else {
-		sv := strings.Join(strings.Split(gt[0], "."), separator)
+		sv := strings.Join(strings.Split(gt[0], "."), nth.separator)
 		final_value = sv
 	}
 

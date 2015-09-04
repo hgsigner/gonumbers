@@ -10,20 +10,51 @@ func Test_NumberToHuman(t *testing.T) {
 
 	a := assert.New(t)
 
-	//Test with defaults
+	tests := []struct {
+		in                         float64
+		out                        string
+		precision                  int
+		separator                  string
+		addPrecision, addSeparator bool
+	}{
+		{in: 123, out: "123"},
+		{in: 1234, out: "1.23 Thousand"},
+		{in: 12345, out: "12.3 Thousand"},
+		{in: 1234567, out: "1.23 Million"},
+		{in: 1234567890, out: "1.23 Billion"},
+		{in: 1234567890123, out: "1.23 Trillion"},
+		{in: 1234567890123456, out: "1.23 Quadrillion"},
+		{
+			in:           489939,
+			addPrecision: true,
+			precision:    2,
+			out:          "490 Thousand",
+		},
+		{
+			in:           489939,
+			addPrecision: true,
+			precision:    4,
+			out:          "489.9 Thousand",
+		},
+		{
+			in:           489939,
+			addPrecision: true,
+			precision:    4,
+			addSeparator: true,
+			separator:    ",",
+			out:          "489,9 Thousand",
+		},
+	}
 
-	a.Equal("123", NumberToHuman(123))
-	a.Equal("1.23 Thousand", NumberToHuman(1234))
-	a.Equal("12.3 Thousand", NumberToHuman(12345))
-	a.Equal("1.23 Million", NumberToHuman(1234567))
-	a.Equal("1.23 Billion", NumberToHuman(1234567890))
-	a.Equal("1.23 Trillion", NumberToHuman(1234567890123))
-	a.Equal("1.23 Quadrillion", NumberToHuman(1234567890123456))
-
-	//Custom
-
-	a.Equal("490 Thousand", NumberToHuman(489939, "precision:2"))
-	a.Equal("489.9 Thousand", NumberToHuman(489939, "precision:4"))
-	a.Equal("489,9 Thousand", NumberToHuman(489939, "precision:4", "separator:,"))
+	for _, t := range tests {
+		nth := new(NumberToHuman)
+		if t.addPrecision {
+			nth.Options(nth.Precision(t.precision))
+		}
+		if t.addSeparator {
+			nth.Options(nth.Separator(t.separator))
+		}
+		a.Equal(t.out, nth.Perform(t.in))
+	}
 
 }
