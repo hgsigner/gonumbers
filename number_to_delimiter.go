@@ -6,32 +6,54 @@ import (
 	"strings"
 )
 
-func NumberToDelimiter(n float64, args ...interface{}) string {
+type NumberToDelimiter struct {
+	separator, delimiter           string
+	isSeparatorSet, isDelimiterSet bool
+}
 
-	// defaults
+type option func(*NumberToDelimiter)
 
-	_, separator, _, delimiter, _, _, _, _, _ := func_params(args...)
+func (ntd *NumberToDelimiter) Options(options ...option) {
+	for _, opt := range options {
+		opt(ntd)
+	}
+}
 
-	if separator == "$notset$" {
-		separator = "."
+func (ntd *NumberToDelimiter) Separator(s string) option {
+	return func(ntd *NumberToDelimiter) {
+		ntd.separator = s
+		ntd.isSeparatorSet = true
+	}
+}
+
+func (ntd *NumberToDelimiter) Delimiter(d string) option {
+	return func(ntd *NumberToDelimiter) {
+		ntd.delimiter = d
+		ntd.isDelimiterSet = true
+	}
+}
+
+func (ntd *NumberToDelimiter) Perform(n float64) string {
+
+	if !ntd.isSeparatorSet {
+		ntd.separator = "."
 	}
 
-	if delimiter == "$notset$" {
-		delimiter = ","
+	if !ntd.isDelimiterSet {
+		ntd.delimiter = ","
 	}
 
 	s := strings.Split(strconv.FormatFloat(n, 'f', -1, 64), ".")
 
 	gt := group_in_thousands(s[0])
-	fp_final := strings.Join(gt, delimiter)
+	fp_final := strings.Join(gt, ntd.delimiter)
 
 	var final_value string
 	if len(s) > 1 {
-		final_value = fmt.Sprintf("%s%s%s", fp_final, separator, s[1])
+		final_value = fmt.Sprintf("%s%s%s", fp_final, ntd.separator, s[1])
 	} else {
 		final_value = fp_final
 	}
 
 	return final_value
-
 }
