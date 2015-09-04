@@ -22,8 +22,10 @@ func main(){
 	n1 := gonumbers.NumberToCurrency(1234567890.50)
 	fmt.println(n1) // "$1,234,567,890.50"
 
-	n2 := gonumbers.NumberToDelimiter(1234567890.34, "separator:-", "delimiter::")
-	fmt.println(n2) // "1:234:567:890-34"
+	ntd := new(gonumbers.NumberToDelimiter)
+	ntd.Options(ntd.Separator("."), ntd.Delimiter(","))
+	ntd_final := ntd.Perform(1234567890.506)
+	ftm.Println(ntd_final) // "1,234,567,890.506"
 
 	n3 := gonumbers.NumberToHuman(489939, "precision:4", "separator:,")
 	fmt.println(n3) // "489,9 Thousand"
@@ -66,13 +68,24 @@ gonumbers.NumberToCurrency(1234567890.50, "precision:2", "unit:$", "separator.",
 *	**delimiter:** 
 
 ```go
-gonumbers.NumberToDelimiter(1234567890) // "1,234,567,890"
+ntd1 := new(NumberToDelimiter)
+ntd1.Perform(1234567890) // "1,234,567,890"
 
-gonumbers.NumberToDelimiter(1234567890.506) // "1,234,567,890.506"
+ntd2 := new(NumberToDelimiter)
+ntd2.Options(ntd2.Separator("."), ntd2.Delimiter(","))
+ntd2.Perform(1234567890.506) // "1,234,567,890.506"
 
-gonumbers.NumberToDelimiter(1234567890.34, "separator:-", "delimiter::") // "1:234:567:890-34"
+ntd3 := new(NumberToDelimiter)
+ntd3.Options(ntd3.Separator("-"), ntd3.Delimiter(":"))
+ntd3.Perform(1234567890.34) // "1:234:567:890-34"
 
-gonumbers.NumberToDelimiter(1234567890.34, "separator:.", "delimiter:") // "1234567890.34"
+ntd4 := new(NumberToDelimiter)
+ntd4.Options(ntd4.Separator("."), ntd4.Delimiter(""))
+ntd4.Perform(1234567890.34) // "1234567890.34"
+
+ntd5 := new(NumberToDelimiter)
+ntd5.Options(ntd5.Separator(""), ntd5.Delimiter(""))
+ntd5.Perform(1234567890.34) // "123456789034"
 ```
 
 ##Number to Human:

@@ -8,32 +8,77 @@ import (
 	"strings"
 )
 
-func NumberToHumanSize(n float64, args ...interface{}) (string, error) {
+type NumberToHumanSize struct {
+	precision      int
+	separator      string
+	delimiter      string
+	prefix         string
+	isSeparatorSet bool
+	isDelimiterSet bool
+	isPrecisionSet bool
+	isPrefixSet    bool
+}
+
+type optionNTHS func(*NumberToHumanSize)
+
+func (nths *NumberToHumanSize) Options(options ...optionNTHS) {
+	for _, opt := range options {
+		opt(nths)
+	}
+}
+
+func (nths *NumberToHumanSize) Precision(p int) optionNTHS {
+	return func(nths *NumberToHumanSize) {
+		nths.precision = p
+		nths.isPrecisionSet = true
+	}
+}
+
+func (nths *NumberToHumanSize) Separator(s string) optionNTHS {
+	return func(nths *NumberToHumanSize) {
+		nths.separator = s
+		nths.isSeparatorSet = true
+	}
+}
+
+func (nths *NumberToHumanSize) Delimiter(d string) optionNTHS {
+	return func(nths *NumberToHumanSize) {
+		nths.delimiter = d
+		nths.isDelimiterSet = true
+	}
+}
+
+func (nths *NumberToHumanSize) Prefix(p string) optionNTHS {
+	return func(nths *NumberToHumanSize) {
+		nths.prefix = p
+		nths.isPrefixSet = true
+	}
+}
+
+func (nths *NumberToHumanSize) Perform(n float64) (string, error) {
 
 	st := []string{"byte", "kb", "mb", "gb", "tb"}
 	var base float64
 
 	// Defaults
 
-	_, separator, precision, delimiter, _, _, _, _, prefix := func_params(args...)
-
-	if separator == "$notset$" {
-		separator = "."
+	if !nths.isSeparatorSet {
+		nths.separator = "."
 	}
 
-	if precision == -1 {
-		precision = 3
+	if !nths.isPrecisionSet {
+		nths.precision = 3
 	}
 
-	if delimiter == "$notset$" {
-		delimiter = ""
+	if !nths.isDelimiterSet {
+		nths.delimiter = ""
 	}
 
-	if prefix == "$notset$" {
-		prefix = "binary"
+	if !nths.isPrefixSet {
+		nths.prefix = "binary"
 	}
 
-	switch prefix {
+	switch nths.prefix {
 	case "binary":
 		base = 1024
 	case "si":
@@ -69,13 +114,13 @@ func NumberToHumanSize(n float64, args ...interface{}) (string, error) {
 	// Retrieves number and formats it
 
 	human_size := n / math.Pow(base, float64(exp))
-	rounded_n1 := rounded_number(human_size, precision)
+	rounded_n1 := rounded_number(human_size, nths.precision)
 	prounded_n1, _ := strconv.ParseFloat(rounded_n1, 64)
-	rounded_n2 := round_with_precision(prounded_n1, precision)
+	rounded_n2 := round_with_precision(prounded_n1, nths.precision)
 
 	final_round_splited := strings.Split(strconv.FormatFloat(rounded_n2, 'f', -1, 64), ".")
 
-	final_round_joined := strings.Join(final_round_splited, separator)
+	final_round_joined := strings.Join(final_round_splited, nths.separator)
 
 	final_formated := fmt.Sprintf("%v %s", final_round_joined, exp_name)
 
