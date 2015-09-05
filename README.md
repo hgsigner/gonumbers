@@ -1,6 +1,6 @@
 #GoNumbers [![Build Status](https://travis-ci.org/hgsigner/gonumbers.svg?branch=master)](https://travis-ci.org/hgsigner/gonumbers)
 
-GoNumbers is an implementation of numbers helpers for Go-lang. This project is inspired by the ruby library ActiveSupport::NumberHelper.
+GoNumbers is an implementation of number helpers for Go-lang. This project is inspired by the ruby library ActiveSupport::NumberHelper.
 
 ##Intalling:
 
