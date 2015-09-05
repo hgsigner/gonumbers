@@ -19,25 +19,40 @@ import (
 )
 
 func main(){
-	n1 := gonumbers.NumberToCurrency(1234567890.50)
-	fmt.println(n1) // "$1,234,567,890.50"
+	ntc := new(gonumbers.NumberToCurrency)
+	ntc.Options(ntc.Precision(2))
+	ntc_final := ntc.Perform(1234567890.506)
+	ftm.Println(ntc_final) // "$1,234,567,890.51"
 
 	ntd := new(gonumbers.NumberToDelimiter)
 	ntd.Options(ntd.Separator("."), ntd.Delimiter(","))
 	ntd_final := ntd.Perform(1234567890.506)
 	ftm.Println(ntd_final) // "1,234,567,890.506"
 
-	n3 := gonumbers.NumberToHuman(489939, "precision:4", "separator:,")
-	fmt.println(n3) // "489,9 Thousand"
+	nth := new(gonumbers.NumberToHuman)
+	nth.Options(nth.Separator(","), nth.Precision(2))
+	nth_final := nth.Perform(489939)
+	ftm.Println(nth_final) // "489,9 Thousand"
+	
+	ntp := new(gonumbers.NumberToPercentage)
+	ntp.Options(ntd.Separator(","), ntd.Delimiter("."))
+	ntp_final := ntp.Perform(1000)
+	ftm.Println(ntp_final) // "1.000,000%"
 
-	n4 := gonumbers.NumberToPercentage(1000, "delimiter:.", "separator:,") 
-	fmt.println(n4) // "1.000,000%"
+	ntph := new(gonumbers.NumberToPhone)
+	ntph.Options(ntd.CountryCode("1"))
+	ntph_final, err := ntph.Perform(1235551234)
+	if err != nil{
+		fmt.Println(err)
+	}
+	ftm.Println(ntph_final) // "+1-123-555-1234"
 
-	n5 := gonumbers.NumberToPhone(1235551234, "country_code:1")
-	fmt.println(n5) // "+1-123-555-1234"
-
-	n6 := gonumbers.NumberToHumanSize(1234567890)
-	fmt.println(n6) // "1.15 GB"
+	nths := new(gonumbers.NumberToHumanSize)
+	nths_final, err := nths.Perform(1235551234)
+	if err != nil{
+		fmt.Println(err)
+	}
+	ftm.Println(nths_final) // "1.15 GB"
 }
 ```
 
@@ -51,13 +66,28 @@ func main(){
 *	**delimiter:** 
 
 ```go
-gonumbers.NumberToCurrency(1234567890.50) // "$1,234,567,890.50"
+ntc2 := new(NumberToCurrency)
+ntc2.Perform(1234567890.50) // "$1,234,567,890.50"
 
-gonumbers.NumberToCurrency(1234567890.506, "precision:2") // "$1,234,567,890.51"
+ntc3 := new(NumberToCurrency)
+ntc3.Options(ntc3.Precision(2))
+ntc3.Perform(1234567890.506) // "$1,234,567,890.51"
 
-gonumbers.NumberToCurrency(1234567890.50, "precision:2", "unit:CAD$") // "CAD$1.234.567.890,50"
+ntc4 := new(NumberToCurrency)
+ntc4.Options(ntc4.Precision(2), ntc4.Unit("$"), ntc4.Separator("."))
+ntc4.Perform(1234567890) // "$1,234,567,890.00"
 
-gonumbers.NumberToCurrency(1234567890.50, "precision:2", "unit:$", "separator.", "delimiter:") // "$1234567890.50"
+ntc5 := new(NumberToCurrency)
+ntc5.Options(ntc5.Precision(3), ntc5.Unit("CAD$"), ntc5.Separator("."), ntc5.Delimiter(","))
+ntc5.Perform(1234567890.506) // "CAD$1,234,567,890.506"
+
+ntc6 := new(NumberToCurrency)
+ntc6.Options(ntc6.Precision(2), ntc5.Separator("."), ntc5.Delimiter(""))
+ntc6.Perform(1234567890.50) // "$1234567890.50"
+
+ntc7 := new(NumberToCurrency)
+ntc7.Options(ntc7.Precision(2), ntc7.Separator(","), ntc7.Delimiter("."))
+ntc7.Perform(1234567890.506) // "$1.234.567.890,51"
 ```
 
 ##Number to Delimiter:
