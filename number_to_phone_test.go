@@ -9,64 +9,178 @@ import (
 func Test_NumberToPhone(t *testing.T) {
 	a := assert.New(t)
 
-	t_wa1, e_wa1 := NumberToPhone("good")
-	a.Error(e_wa1)
-	a.Contains(e_wa1.Error(), "The value should an integer.")
-	a.Equal("", t_wa1)
+	ntph_err1 := new(NumberToPhone)
+	ntph_err1_resp, err1 := ntph_err1.Perform("good")
+	a.Error(err1)
+	a.Contains(err1.Error(), "The value should an integer.")
+	a.Equal("", ntph_err1_resp)
 
-	t_wa2, e_wa2 := NumberToPhone("123abc456")
-	a.Error(e_wa2)
-	a.Contains(e_wa2.Error(), "The value should an integer.")
-	a.Equal("", t_wa2)
+	ntph_err2 := new(NumberToPhone)
+	ntph_err2_resp, err2 := ntph_err2.Perform("123abc456")
+	a.Error(err2)
+	a.Contains(err2.Error(), "The value should an integer.")
+	a.Equal("", ntph_err2_resp)
 
-	t1, e1 := NumberToPhone(5551234)
-	a.NoError(e1)
-	a.Equal("555-1234", t1)
+	tests := []struct {
+		in             interface{}
+		out            string
+		delimiter      string
+		addDelimiter   bool
+		areaCode       bool
+		addAreaCode    bool
+		extension      string
+		addExtension   bool
+		countryCode    string
+		addCountryCode bool
+		digitsSize     int
+		addDigitsSize  bool
+	}{
+		{in: 5551234, out: "555-1234"},
+		{in: 1235551234, out: "123-555-1234"},
+		{
+			in:          1235551234,
+			addAreaCode: true,
+			areaCode:    true,
+			out:         "(123) 555-1234",
+		},
+		{
+			in:             1235551234,
+			addAreaCode:    true,
+			areaCode:       true,
+			addCountryCode: true,
+			countryCode:    "1",
+			out:            "+1(123) 555-1234",
+		},
+		{
+			in:             1235551234,
+			addCountryCode: true,
+			countryCode:    "1",
+			out:            "+1-123-555-1234",
+		},
+		{
+			in:          5551234,
+			addAreaCode: true,
+			areaCode:    true,
+			out:         "555-1234",
+		},
+		{
+			in:             1234555556789,
+			addAreaCode:    true,
+			areaCode:       true,
+			addCountryCode: true,
+			countryCode:    "1",
+			addExtension:   true,
+			extension:      "4545",
+			out:            "+1(123455) 555-6789 x 4545",
+		},
+		{
+			in:             1234555556789,
+			addAreaCode:    true,
+			areaCode:       true,
+			addCountryCode: true,
+			countryCode:    "1",
+			addExtension:   true,
+			extension:      "4545",
+			addDigitsSize:  true,
+			digitsSize:     4,
+			out:            "+1(12345) 5555-6789 x 4545",
+		},
+		{
+			in:             1234555556789,
+			addAreaCode:    true,
+			areaCode:       true,
+			addCountryCode: true,
+			countryCode:    "1",
+			addExtension:   true,
+			extension:      "4545",
+			addDigitsSize:  true,
+			digitsSize:     5,
+			out:            "+1(1234) 55555-6789 x 4545",
+		},
+		{
+			in:             1234555556789,
+			addDelimiter:   true,
+			delimiter:      ",",
+			addAreaCode:    true,
+			areaCode:       true,
+			addCountryCode: true,
+			countryCode:    "55",
+			addDigitsSize:  true,
+			digitsSize:     5,
+			out:            "+55(1234) 55555,6789",
+		},
+	}
 
-	t2, e2 := NumberToPhone(1235551234)
-	a.NoError(e2)
-	a.Equal("123-555-1234", t2)
+	for _, t := range tests {
+		ntph := new(NumberToPhone)
 
-	t3, e3 := NumberToPhone(1235551234, "area_code:true")
-	a.NoError(e3)
-	a.Equal("(123) 555-1234", t3)
+		if t.addDelimiter {
+			ntph.Options(ntph.Delimiter(t.delimiter))
+		}
 
-	t4, e4 := NumberToPhone(1235551234, "area_code:true", "country_code:1")
-	a.NoError(e4)
-	a.Equal("+1(123) 555-1234", t4)
+		if t.addAreaCode {
+			ntph.Options(ntph.AreaCode(t.areaCode))
+		}
 
-	t5, e5 := NumberToPhone(1235551234, "country_code:1")
-	a.NoError(e5)
-	a.Equal("+1-123-555-1234", t5)
+		if t.addExtension {
+			ntph.Options(ntph.Extension(t.extension))
+		}
 
-	t6, e6 := NumberToPhone(5551234, "area_code:true")
-	a.NoError(e6)
-	a.Equal("555-1234", t6)
+		if t.addCountryCode {
+			ntph.Options(ntph.CountryCode(t.countryCode))
+		}
 
-	t7, e7 := NumberToPhone(1234555556789, "area_code:true", "country_code:1", "extension:4545")
-	a.NoError(e7)
-	a.Equal("+1(123455) 555-6789 x 4545", t7)
+		if t.addDigitsSize {
+			ntph.Options(ntph.DigitsSize(t.digitsSize))
+		}
 
-	t8, e8 := NumberToPhone(1234555556789, "area_code:true", "country_code:1", "extension:4545", "digits_size:4")
-	a.NoError(e8)
-	a.Equal("+1(12345) 5555-6789 x 4545", t8)
-
-	t9, e9 := NumberToPhone(1234555556789, "area_code:true", "country_code:1", "extension:4545", "digits_size:5")
-	a.NoError(e9)
-	a.Equal("+1(1234) 55555-6789 x 4545", t9)
-
-	t10, e10 := NumberToPhone(1234555556789, "area_code:true", "country_code:55", "digits_size:5", "delimiter:,")
-	a.NoError(e10)
-	a.Equal("+55(1234) 55555,6789", t10)
+		ntph_final, _ := ntph.Perform(t.in)
+		a.Equal(t.out, ntph_final)
+	}
 }
 
 func Test_SplitToPhoneFormat(t *testing.T) {
 	a := assert.New(t)
 
-	a.Equal([]string{"555", "1234"}, split_to_phone_format("5551234", 3))
-	a.Equal([]string{"5", "555", "1234"}, split_to_phone_format("55551234", 3))
-	a.Equal([]string{"5555", "1234"}, split_to_phone_format("55551234", 4))
-	a.Equal([]string{"123", "555", "1234"}, split_to_phone_format("1235551234", 3))
-	a.Equal([]string{"123123", "555", "1234"}, split_to_phone_format("1231235551234", 3))
-	a.Equal([]string{"12312", "3555", "1234"}, split_to_phone_format("1231235551234", 4))
+	tests := []struct {
+		val       string
+		precision int
+		out       []string
+	}{
+		{
+			val:       "5551234",
+			precision: 3,
+			out:       []string{"555", "1234"},
+		},
+		{
+			val:       "55551234",
+			precision: 3,
+			out:       []string{"5", "555", "1234"},
+		},
+		{
+			val:       "55551234",
+			precision: 4,
+			out:       []string{"5555", "1234"},
+		},
+		{
+			val:       "1235551234",
+			precision: 3,
+			out:       []string{"123", "555", "1234"},
+		},
+		{
+			val:       "1231235551234",
+			precision: 3,
+			out:       []string{"123123", "555", "1234"},
+		},
+		{
+			val:       "1231235551234",
+			precision: 4,
+			out:       []string{"12312", "3555", "1234"},
+		},
+	}
+
+	for _, t := range tests {
+		a.Equal(t.out, split_to_phone_format(t.val, t.precision))
+	}
+
 }

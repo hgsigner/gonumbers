@@ -7,7 +7,48 @@ import (
 	"strings"
 )
 
-func NumberToPercentage(val interface{}, args ...interface{}) string {
+type NumberToPercentage struct {
+	precision                                      int
+	separator, delimiter                           string
+	isPrecisionSet, isSeparatorSet, isDelimiterSet bool
+}
+
+type optionNTP func(*NumberToPercentage)
+
+func (ntp *NumberToPercentage) Options(options ...optionNTP) {
+	for _, opt := range options {
+		opt(ntp)
+	}
+}
+
+func (ntp *NumberToPercentage) Precision(p int) optionNTP {
+	return func(ntp *NumberToPercentage) {
+		ntp.precision = p
+		ntp.isPrecisionSet = true
+	}
+}
+
+func (ntp *NumberToPercentage) Separator(s string) optionNTP {
+	return func(ntp *NumberToPercentage) {
+		ntp.separator = s
+		ntp.isSeparatorSet = true
+	}
+}
+
+func (ntp *NumberToPercentage) Delimiter(d string) optionNTP {
+	return func(ntp *NumberToPercentage) {
+		ntp.delimiter = d
+		ntp.isDelimiterSet = true
+	}
+}
+
+//It performs the convertion of the input to percentage.
+//It accepts an interface, but only values related to numbers
+//(e.g. floats, ints) or a string that could be parsed
+//to float (e.g. "12345").
+//Inputs that are not related to numbers will be returned in the
+//0.000% format.
+func (ntp *NumberToPercentage) Perform(val interface{}) string {
 
 	parsed_float := 0.0
 
@@ -26,28 +67,26 @@ func NumberToPercentage(val interface{}, args ...interface{}) string {
 
 	// Defaults
 
-	_, separator, precision, delimiter, _, _, _, _, _ := func_params(args...)
-
-	if separator == "$notset$" {
-		separator = "."
+	if !ntp.isSeparatorSet {
+		ntp.separator = "."
 	}
 
-	if precision == -1 {
-		precision = 3
+	if !ntp.isPrecisionSet {
+		ntp.precision = 3
 	}
 
-	if delimiter == "$notset$" {
-		delimiter = ","
+	if !ntp.isDelimiterSet {
+		ntp.delimiter = ","
 	}
 
-	formated_val_splited := strings.Split(strconv.FormatFloat(parsed_float, 'f', precision, 64), ".")
+	formated_val_splited := strings.Split(strconv.FormatFloat(parsed_float, 'f', ntp.precision, 64), ".")
 	gt := group_in_thousands(formated_val_splited[0])
-	joined_thousands := strings.Join(gt, delimiter)
+	joined_thousands := strings.Join(gt, ntp.delimiter)
 
 	var final_value string
 	if len(formated_val_splited) > 1 {
 
-		final_value = fmt.Sprintf("%s%s%s%%", joined_thousands, separator, formated_val_splited[1])
+		final_value = fmt.Sprintf("%s%s%s%%", joined_thousands, ntp.separator, formated_val_splited[1])
 	} else {
 		final_value = fmt.Sprintf("%s%%", joined_thousands)
 	}
