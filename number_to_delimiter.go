@@ -11,26 +11,25 @@ type NumberToDelimiter struct {
 	isSeparatorSet, isDelimiterSet bool
 }
 
-type optionNTD func(*NumberToDelimiter)
-
-func (ntd *NumberToDelimiter) Options(options ...optionNTD) {
+func (ntd *NumberToDelimiter) Options(options ...interface{}) {
 	for _, opt := range options {
-		opt(ntd)
+		switch opt.(type) {
+		case separatorOption:
+			opt.(separatorOption)(ntd)
+		case delimiterOption:
+			opt.(delimiterOption)(ntd)
+		}
 	}
 }
 
-func (ntd *NumberToDelimiter) Separator(s string) optionNTD {
-	return func(ntd *NumberToDelimiter) {
-		ntd.separator = s
-		ntd.isSeparatorSet = true
-	}
+func (ntd *NumberToDelimiter) setSeparator(s string) {
+	ntd.separator = s
+	ntd.isSeparatorSet = true
 }
 
-func (ntd *NumberToDelimiter) Delimiter(d string) optionNTD {
-	return func(ntd *NumberToDelimiter) {
-		ntd.delimiter = d
-		ntd.isDelimiterSet = true
-	}
+func (ntd *NumberToDelimiter) setDelimiter(d string) {
+	ntd.delimiter = d
+	ntd.isDelimiterSet = true
 }
 
 func (ntd *NumberToDelimiter) Perform(n float64) string {
