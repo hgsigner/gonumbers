@@ -30,17 +30,17 @@ func main(){
 	ftm.Println(ntd_final) // "1,234,567,890.506"
 
 	nth := new(gonumbers.NumberToHuman)
-	nth.Options(nth.Separator(","), nth.Precision(2))
+	nth.Options(gonumbers.Separator(","), gonumbers.Precision(2))
 	nth_final := nth.Perform(489939)
 	ftm.Println(nth_final) // "489,9 Thousand"
 	
 	ntp := new(gonumbers.NumberToPercentage)
-	ntp.Options(ntd.Separator(","), ntd.Delimiter("."))
+	ntp.Options(gonumbers.Separator(","), gonumbers.Delimiter("."))
 	ntp_final := ntp.Perform(1000)
 	ftm.Println(ntp_final) // "1.000,000%"
 
 	ntph := new(gonumbers.NumberToPhone)
-	ntph.Options(ntd.CountryCode("1"))
+	ntph.Options(gonumbers.CountryCode("1"))
 	ntph_final, err := ntph.Perform(1235551234)
 	if err != nil{
 		fmt.Println(err)
