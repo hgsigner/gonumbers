@@ -12,40 +12,39 @@ type NumberToCurrency struct {
 	isUnitSet, isSeparatorSet, isDelimiterSet, isPrecisionSet bool
 }
 
-type optionNTC func(*NumberToCurrency)
-
-func (ntc *NumberToCurrency) Options(options ...optionNTC) {
+func (ntc *NumberToCurrency) Options(options ...interface{}) {
 	for _, opt := range options {
-		opt(ntc)
+		switch opt.(type) {
+		case precisionOption:
+			opt.(precisionOption)(ntc)
+		case unitOption:
+			opt.(unitOption)(ntc)
+		case separatorOption:
+			opt.(separatorOption)(ntc)
+		case delimiterOption:
+			opt.(delimiterOption)(ntc)
+		}
 	}
 }
 
-func (ntc *NumberToCurrency) Unit(s string) optionNTC {
-	return func(ntc *NumberToCurrency) {
-		ntc.unit = s
-		ntc.isUnitSet = true
-	}
+func (ntc *NumberToCurrency) setUnit(s string) {
+	ntc.unit = s
+	ntc.isUnitSet = true
 }
 
-func (ntc *NumberToCurrency) Precision(s int) optionNTC {
-	return func(ntc *NumberToCurrency) {
-		ntc.precision = s
-		ntc.isPrecisionSet = true
-	}
+func (ntc *NumberToCurrency) setPrecision(s int) {
+	ntc.precision = s
+	ntc.isPrecisionSet = true
 }
 
-func (ntc *NumberToCurrency) Separator(s string) optionNTC {
-	return func(ntc *NumberToCurrency) {
-		ntc.separator = s
-		ntc.isSeparatorSet = true
-	}
+func (ntc *NumberToCurrency) setSeparator(s string) {
+	ntc.separator = s
+	ntc.isSeparatorSet = true
 }
 
-func (ntc *NumberToCurrency) Delimiter(d string) optionNTC {
-	return func(ntc *NumberToCurrency) {
-		ntc.delimiter = d
-		ntc.isDelimiterSet = true
-	}
+func (ntc *NumberToCurrency) setDelimiter(d string) {
+	ntc.delimiter = d
+	ntc.isDelimiterSet = true
 }
 
 func (ntc *NumberToCurrency) Perform(n float64) string {

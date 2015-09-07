@@ -21,47 +21,46 @@ type NumberToPhone struct {
 	isDigitsSizeSet  bool
 }
 
-type optionNTPH func(*NumberToPhone)
-
-func (ntph *NumberToPhone) Options(options ...optionNTPH) {
+func (ntph *NumberToPhone) Options(options ...interface{}) {
 	for _, opt := range options {
-		opt(ntph)
+		switch opt.(type) {
+		case delimiterOption:
+			opt.(delimiterOption)(ntph)
+		case areaCodeOption:
+			opt.(areaCodeOption)(ntph)
+		case extensionOption:
+			opt.(extensionOption)(ntph)
+		case countryCodeOption:
+			opt.(countryCodeOption)(ntph)
+		case digitsSizeOption:
+			opt.(digitsSizeOption)(ntph)
+		}
 	}
 }
 
-func (ntph *NumberToPhone) Delimiter(d string) optionNTPH {
-	return func(ntph *NumberToPhone) {
-		ntph.delimiter = d
-		ntph.isDelimiterSet = true
-	}
+func (ntph *NumberToPhone) setDelimiter(d string) {
+	ntph.delimiter = d
+	ntph.isDelimiterSet = true
 }
 
-func (ntph *NumberToPhone) AreaCode(ac bool) optionNTPH {
-	return func(ntph *NumberToPhone) {
-		ntph.areaCode = ac
-		ntph.isAreaCodeSet = true
-	}
+func (ntph *NumberToPhone) setAreaCode(ac bool) {
+	ntph.areaCode = ac
+	ntph.isAreaCodeSet = true
 }
 
-func (ntph *NumberToPhone) Extension(ex string) optionNTPH {
-	return func(ntph *NumberToPhone) {
-		ntph.extension = ex
-		ntph.isExtensionSet = true
-	}
+func (ntph *NumberToPhone) setExtension(ex string) {
+	ntph.extension = ex
+	ntph.isExtensionSet = true
 }
 
-func (ntph *NumberToPhone) CountryCode(cc string) optionNTPH {
-	return func(ntph *NumberToPhone) {
-		ntph.countryCode = cc
-		ntph.isCountryCodeSet = true
-	}
+func (ntph *NumberToPhone) setCountryCode(cc string) {
+	ntph.countryCode = cc
+	ntph.isCountryCodeSet = true
 }
 
-func (ntph *NumberToPhone) DigitsSize(ds int) optionNTPH {
-	return func(ntph *NumberToPhone) {
-		ntph.digitsSize = ds
-		ntph.isDigitsSizeSet = true
-	}
+func (ntph *NumberToPhone) setDigitsSize(ds int) {
+	ntph.digitsSize = ds
+	ntph.isDigitsSizeSet = true
 }
 
 func (ntph *NumberToPhone) Perform(val interface{}) (string, error) {

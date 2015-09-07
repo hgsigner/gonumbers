@@ -12,26 +12,25 @@ type NumberToHuman struct {
 	isSeparatorSet, isPrecisionSet bool
 }
 
-type optionNTH func(*NumberToHuman)
-
-func (nth *NumberToHuman) Options(options ...optionNTH) {
+func (nth *NumberToHuman) Options(options ...interface{}) {
 	for _, opt := range options {
-		opt(nth)
+		switch opt.(type) {
+		case separatorOption:
+			opt.(separatorOption)(nth)
+		case precisionOption:
+			opt.(precisionOption)(nth)
+		}
 	}
 }
 
-func (nth *NumberToHuman) Separator(s string) optionNTH {
-	return func(nth *NumberToHuman) {
-		nth.separator = s
-		nth.isSeparatorSet = true
-	}
+func (nth *NumberToHuman) setSeparator(s string) {
+	nth.separator = s
+	nth.isSeparatorSet = true
 }
 
-func (nth *NumberToHuman) Precision(p int) optionNTH {
-	return func(nth *NumberToHuman) {
-		nth.precision = p
-		nth.isPrecisionSet = true
-	}
+func (nth *NumberToHuman) setPrecision(p int) {
+	nth.precision = p
+	nth.isPrecisionSet = true
 }
 
 func (nth *NumberToHuman) Perform(n float64) string {

@@ -19,40 +19,39 @@ type NumberToHumanSize struct {
 	isPrefixSet    bool
 }
 
-type optionNTHS func(*NumberToHumanSize)
-
-func (nths *NumberToHumanSize) Options(options ...optionNTHS) {
+func (nths *NumberToHumanSize) Options(options ...interface{}) {
 	for _, opt := range options {
-		opt(nths)
+		switch opt.(type) {
+		case precisionOption:
+			opt.(precisionOption)(nths)
+		case separatorOption:
+			opt.(separatorOption)(nths)
+		case delimiterOption:
+			opt.(delimiterOption)(nths)
+		case prefixOption:
+			opt.(prefixOption)(nths)
+		}
 	}
 }
 
-func (nths *NumberToHumanSize) Precision(p int) optionNTHS {
-	return func(nths *NumberToHumanSize) {
-		nths.precision = p
-		nths.isPrecisionSet = true
-	}
+func (nths *NumberToHumanSize) setPrecision(p int) {
+	nths.precision = p
+	nths.isPrecisionSet = true
 }
 
-func (nths *NumberToHumanSize) Separator(s string) optionNTHS {
-	return func(nths *NumberToHumanSize) {
-		nths.separator = s
-		nths.isSeparatorSet = true
-	}
+func (nths *NumberToHumanSize) setSeparator(s string) {
+	nths.separator = s
+	nths.isSeparatorSet = true
 }
 
-func (nths *NumberToHumanSize) Delimiter(d string) optionNTHS {
-	return func(nths *NumberToHumanSize) {
-		nths.delimiter = d
-		nths.isDelimiterSet = true
-	}
+func (nths *NumberToHumanSize) setDelimiter(d string) {
+	nths.delimiter = d
+	nths.isDelimiterSet = true
 }
 
-func (nths *NumberToHumanSize) Prefix(p string) optionNTHS {
-	return func(nths *NumberToHumanSize) {
-		nths.prefix = p
-		nths.isPrefixSet = true
-	}
+func (nths *NumberToHumanSize) setPrefix(p string) {
+	nths.prefix = p
+	nths.isPrefixSet = true
 }
 
 func (nths *NumberToHumanSize) Perform(n float64) (string, error) {

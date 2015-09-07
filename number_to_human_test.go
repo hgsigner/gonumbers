@@ -49,10 +49,10 @@ func Test_NumberToHuman(t *testing.T) {
 	for _, t := range tests {
 		nth := &NumberToHuman{}
 		if t.addPrecision {
-			nth.Options(nth.Precision(t.precision))
+			nth.Options(Precision(t.precision))
 		}
 		if t.addSeparator {
-			nth.Options(nth.Separator(t.separator))
+			nth.Options(Separator(t.separator))
 		}
 		a.Equal(t.out, nth.Perform(t.in))
 	}

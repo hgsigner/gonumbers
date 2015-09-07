@@ -115,23 +115,23 @@ func Test_NumberToPhone(t *testing.T) {
 		ntph := &NumberToPhone{}
 
 		if t.addDelimiter {
-			ntph.Options(ntph.Delimiter(t.delimiter))
+			ntph.Options(Delimiter(t.delimiter))
 		}
 
 		if t.addAreaCode {
-			ntph.Options(ntph.AreaCode(t.areaCode))
+			ntph.Options(AreaCode(t.areaCode))
 		}
 
 		if t.addExtension {
-			ntph.Options(ntph.Extension(t.extension))
+			ntph.Options(Extension(t.extension))
 		}
 
 		if t.addCountryCode {
-			ntph.Options(ntph.CountryCode(t.countryCode))
+			ntph.Options(CountryCode(t.countryCode))
 		}
 
 		if t.addDigitsSize {
-			ntph.Options(ntph.DigitsSize(t.digitsSize))
+			ntph.Options(DigitsSize(t.digitsSize))
 		}
 
 		ntph_final, _ := ntph.Perform(t.in)

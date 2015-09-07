@@ -13,33 +13,32 @@ type NumberToPercentage struct {
 	isPrecisionSet, isSeparatorSet, isDelimiterSet bool
 }
 
-type optionNTP func(*NumberToPercentage)
-
-func (ntp *NumberToPercentage) Options(options ...optionNTP) {
+func (ntp *NumberToPercentage) Options(options ...interface{}) {
 	for _, opt := range options {
-		opt(ntp)
+		switch opt.(type) {
+		case precisionOption:
+			opt.(precisionOption)(ntp)
+		case separatorOption:
+			opt.(separatorOption)(ntp)
+		case delimiterOption:
+			opt.(delimiterOption)(ntp)
+		}
 	}
 }
 
-func (ntp *NumberToPercentage) Precision(p int) optionNTP {
-	return func(ntp *NumberToPercentage) {
-		ntp.precision = p
-		ntp.isPrecisionSet = true
-	}
+func (ntp *NumberToPercentage) setPrecision(p int) {
+	ntp.precision = p
+	ntp.isPrecisionSet = true
 }
 
-func (ntp *NumberToPercentage) Separator(s string) optionNTP {
-	return func(ntp *NumberToPercentage) {
-		ntp.separator = s
-		ntp.isSeparatorSet = true
-	}
+func (ntp *NumberToPercentage) setSeparator(s string) {
+	ntp.separator = s
+	ntp.isSeparatorSet = true
 }
 
-func (ntp *NumberToPercentage) Delimiter(d string) optionNTP {
-	return func(ntp *NumberToPercentage) {
-		ntp.delimiter = d
-		ntp.isDelimiterSet = true
-	}
+func (ntp *NumberToPercentage) setDelimiter(d string) {
+	ntp.delimiter = d
+	ntp.isDelimiterSet = true
 }
 
 //It performs the convertion of the input to percentage.

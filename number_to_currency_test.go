@@ -77,19 +77,19 @@ func Test_NumberToCurrency(t *testing.T) {
 		ntc := &NumberToCurrency{}
 
 		if t.addPrecision {
-			ntc.Options(ntc.Precision(t.precision))
+			ntc.Options(Precision(t.precision))
 		}
 
 		if t.addUnit {
-			ntc.Options(ntc.Unit(t.unit))
+			ntc.Options(Unit(t.unit))
 		}
 
 		if t.addSeparator {
-			ntc.Options(ntc.Separator(t.separator))
+			ntc.Options(Separator(t.separator))
 		}
 
 		if t.addDelimiter {
-			ntc.Options(ntc.Delimiter(t.delimiter))
+			ntc.Options(Delimiter(t.delimiter))
 		}
 
 		a.Equal(t.out, ntc.Perform(t.in))

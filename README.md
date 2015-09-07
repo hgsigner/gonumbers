@@ -20,12 +20,12 @@ import (
 
 func main(){
 	ntc := new(gonumbers.NumberToCurrency)
-	ntc.Options(ntc.Precision(2))
+	ntc.Options(gonumbers.Precision(2))
 	ntc_final := ntc.Perform(1234567890.506)
 	ftm.Println(ntc_final) // "$1,234,567,890.51"
 
 	ntd := new(gonumbers.NumberToDelimiter)
-	ntd.Options(ntd.Separator("."), ntd.Delimiter(","))
+	ntd.Options(gonumbers.Separator("."), gonumbers.Delimiter(","))
 	ntd_final := ntd.Perform(1234567890.506)
 	ftm.Println(ntd_final) // "1,234,567,890.506"
 
@@ -60,33 +60,33 @@ func main(){
 
 **Options:**
 
-*	**unit:** 
-*	**precision:** 
-*	**separator:** 
-*	**delimiter:** 
+*	**gonumbers.Unit(string):** 
+*	**gonumbers.Precision(int):** 
+*	**gonumbers.Separator(string):** 
+*	**gonumbers.Delimiter(string):** 
 
 ```go
-ntc2 := new(NumberToCurrency)
+ntc2 := new(gonumbers.NumberToCurrency)
 ntc2.Perform(1234567890.50) // "$1,234,567,890.50"
 
-ntc3 := new(NumberToCurrency)
-ntc3.Options(ntc3.Precision(2))
+ntc3 := new(gonumbers.NumberToCurrency)
+ntc3.Options(gonumbers.Precision(2))
 ntc3.Perform(1234567890.506) // "$1,234,567,890.51"
 
-ntc4 := new(NumberToCurrency)
-ntc4.Options(ntc4.Precision(2), ntc4.Unit("$"), ntc4.Separator("."))
+ntc4 := new(gonumbers.NumberToCurrency)
+ntc4.Options(gonumbers.Precision(2), gonumbers.Unit("$"), gonumbers.Separator("."))
 ntc4.Perform(1234567890) // "$1,234,567,890.00"
 
-ntc5 := new(NumberToCurrency)
-ntc5.Options(ntc5.Precision(3), ntc5.Unit("CAD$"), ntc5.Separator("."), ntc5.Delimiter(","))
+ntc5 := new(gonumbers.NumberToCurrency)
+ntc5.Options(gonumbers.Precision(3), gonumbers.Unit("CAD$"), gonumbers.Separator("."), gonumbers.Delimiter(","))
 ntc5.Perform(1234567890.506) // "CAD$1,234,567,890.506"
 
-ntc6 := new(NumberToCurrency)
-ntc6.Options(ntc6.Precision(2), ntc5.Separator("."), ntc5.Delimiter(""))
+ntc6 := new(gonumbers.NumberToCurrency)
+ntc6.Options(gonumbers.Precision(2), gonumbers.Separator("."), gonumbers.Delimiter(""))
 ntc6.Perform(1234567890.50) // "$1234567890.50"
 
-ntc7 := new(NumberToCurrency)
-ntc7.Options(ntc7.Precision(2), ntc7.Separator(","), ntc7.Delimiter("."))
+ntc7 := new(gonumbers.NumberToCurrency)
+ntc7.Options(gonumbers.Precision(2), gonumbers.Separator(","), gonumbers.Delimiter("."))
 ntc7.Perform(1234567890.506) // "$1.234.567.890,51"
 ```
 
@@ -94,27 +94,27 @@ ntc7.Perform(1234567890.506) // "$1.234.567.890,51"
 
 **Options:**
 
-*	**separator:** 
-*	**delimiter:** 
+*	**gonumbers.Delimiter(string):** 
+*	**gonumbers.Separator(string):** 
 
 ```go
-ntd1 := new(NumberToDelimiter)
+ntd1 := new(gonumbers.NumberToDelimiter)
 ntd1.Perform(1234567890) // "1,234,567,890"
 
-ntd2 := new(NumberToDelimiter)
-ntd2.Options(ntd2.Separator("."), ntd2.Delimiter(","))
+ntd2 := new(gonumbers.NumberToDelimiter)
+ntd2.Options(gonumbers.Separator("."), gonumbers.Delimiter(","))
 ntd2.Perform(1234567890.506) // "1,234,567,890.506"
 
-ntd3 := new(NumberToDelimiter)
-ntd3.Options(ntd3.Separator("-"), ntd3.Delimiter(":"))
+ntd3 := new(gonumbers.NumberToDelimiter)
+ntd3.Options(gonumbers.Separator("-"), gonumbers.Delimiter(":"))
 ntd3.Perform(1234567890.34) // "1:234:567:890-34"
 
-ntd4 := new(NumberToDelimiter)
-ntd4.Options(ntd4.Separator("."), ntd4.Delimiter(""))
+ntd4 := new(gonumbers.NumberToDelimiter)
+ntd4.Options(gonumbers.Separator("."), gonumbers.Delimiter(""))
 ntd4.Perform(1234567890.34) // "1234567890.34"
 
-ntd5 := new(NumberToDelimiter)
-ntd5.Options(ntd5.Separator(""), ntd5.Delimiter(""))
+ntd5 := new(gonumbers.NumberToDelimiter)
+ntd5.Options(gonumbers.Separator(""), gonumbers.Delimiter(""))
 ntd5.Perform(1234567890.34) // "123456789034"
 ```
 
@@ -122,8 +122,8 @@ ntd5.Perform(1234567890.34) // "123456789034"
 
 **Options:**
 
-*	**separator:** 
-*	**precision:** 
+*	**gonumbers.Precision(int):** 
+*	**gonumbers.Separator(string):** 
 
 ```go
 gonumbers.NumberToHuman(123) // "123"
@@ -151,10 +151,9 @@ gonumbers.NumberToHuman(489939, "precision:4", "separator:,") // "489,9 Thousand
 
 **Options:**
 
-*	**delimiter:** Defines the delimiter for the number (default => ".")
-*	**precision:** Sets precision of the number (default => 3).
-
-*	**prefix:** Defines if it is binary or si (default => binary)
+*	**gonumbers.Delimiter(string):** Defines the delimiter for the number (default => ".")
+*	**gonumbers.Precision(int):** Sets precision of the number (default => 3).
+*	**gonumbers.Prefix(string):** Defines if it is binary or si (default => binary)
 
 ```go
 gonumbers.NumberToHumanSize(333) // "333 Bytes"
@@ -174,9 +173,9 @@ gonumbers.NumberToHumanSize(524288000, "precision:5") // "500 MB"
 
 **Options:**
 
-* **separator:**
-* **precision:**
-* **delimiter:**
+*	**gonumbers.Precision(int):** 
+*	**gonumbers.Separator(string):** 
+*  **gonumbers.Delimiter(string):**
 
 ```go
 gonumbers.NumberToPercentage(100) // "100.000%"
@@ -198,11 +197,11 @@ gonumbers.NumberToPercentage("hahahah") // "0.000%"
 
 **Options:**
 
-*	**delimiter:** Defines the delimiter for the number. Default is "-"
-*	**area_code:** Prints the area code in ()
-*	**extension:** Appends extension to phone number. Ex. +1(123) 555-6789 x 4545
-*	**country_code:** Prepends country code to phone number (ex. +1)
-*	**digits_size:** Sets the number of digits of the second part of the phone (digits_count:5). Ex. 1234555556789 => 1234-55555-6789
+*	**gonumbers.Delimiter(string):** Defines the delimiter for the number. Default is "-"
+*	**gonumbers.AreaCode(bool):** Prints the area code in ()
+*	**gonumbers.Extension(string):** Appends extension to phone number. Ex. +1(123) 555-6789 x 4545
+*	**gonumbers.CountryCode(string):** Prepends country code to phone number (ex. +1)
+*	**gonumbers.DigitsSize(int):** Sets the number of digits of the second part of the phone (digits_count:5). Ex. 1234555556789 => 1234-55555-6789
 
 ```go
 gonumbers.NumberToPhone(5551234) // "555-1234"

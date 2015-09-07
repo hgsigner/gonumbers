@@ -9,44 +9,76 @@ import (
 func Test_NumberToHumanSize(t *testing.T) {
 	a := assert.New(t)
 
-	nths1 := new(NumberToHumanSize)
-	nths1.Options(nths1.Prefix("ahhaha"))
+	nths1 := &NumberToHumanSize{}
+	nths1.Options(Prefix("ahhaha"))
 	nths1_final, err1 := nths1.Perform(123)
 	a.Error(err1)
 	a.Contains(err1.Error(), "Prefix must be binary or si.")
 	a.Equal("", nths1_final)
 
-	nths2 := new(NumberToHumanSize)
-	nths2_final, err2 := nths2.Perform(333)
-	a.NoError(err2)
-	a.Equal("333 Bytes", nths2_final)
+	tests := []struct {
+		in           float64
+		addPrecision bool
+		precision    int
+		addSeparator bool
+		separator    string
+		addDelimiter bool
+		delimiter    string
+		addPrefix    bool
+		prefix       string
+		out          string
+	}{
+		{
+			in:  333,
+			out: "333 Bytes",
+		},
+		{
+			in:  1234,
+			out: "1.21 KB",
+		},
+		{
+			in:  1234567890,
+			out: "1.15 GB",
+		},
+		{
+			in:           1234567,
+			addPrecision: true,
+			precision:    2,
+			out:          "1.2 MB",
+		},
+		{
+			in:           524288000,
+			addPrecision: true,
+			precision:    5,
+			out:          "500 MB",
+		},
+		{
+			in:           1234567,
+			addPrecision: true,
+			precision:    2,
+			addSeparator: true,
+			separator:    ",",
+			out:          "1,2 MB",
+		},
+	}
 
-	nths3 := new(NumberToHumanSize)
-	nths3_final, err3 := nths3.Perform(1234)
-	a.NoError(err3)
-	a.Equal("1.21 KB", nths3_final)
-
-	nths4 := new(NumberToHumanSize)
-	nths4_final, err4 := nths4.Perform(1234567890)
-	a.NoError(err4)
-	a.Equal("1.15 GB", nths4_final)
-
-	nths5 := new(NumberToHumanSize)
-	nths5.Options(nths5.Precision(2))
-	nths5_final, err5 := nths5.Perform(1234567)
-	a.NoError(err5)
-	a.Equal("1.2 MB", nths5_final)
-
-	nths6 := new(NumberToHumanSize)
-	nths6.Options(nths5.Precision(5))
-	nths6_final, err6 := nths6.Perform(524288000)
-	a.NoError(err6)
-	a.Equal("500 MB", nths6_final)
-
-	nths7 := new(NumberToHumanSize)
-	nths7.Options(nths7.Precision(2), nths7.Separator(","))
-	nths7_final, err7 := nths7.Perform(1234567)
-	a.NoError(err7)
-	a.Equal("1,2 MB", nths7_final)
+	for _, t := range tests {
+		nths := &NumberToHumanSize{}
+		if t.addPrecision {
+			nths.Options(Precision(t.precision))
+		}
+		if t.addSeparator {
+			nths.Options(Separator(t.separator))
+		}
+		if t.addDelimiter {
+			nths.Options(Delimiter(t.delimiter))
+		}
+		if t.addPrefix {
+			nths.Options(Prefix(t.prefix))
+		}
+		nths_final, err := nths.Perform(t.in)
+		a.NoError(err)
+		a.Equal(t.out, nths_final)
+	}
 
 }

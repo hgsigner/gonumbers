@@ -47,15 +47,15 @@ func Test_NumberToPercentage(t *testing.T) {
 		ntp := &NumberToPercentage{}
 
 		if t.addPrecision {
-			ntp.Options(ntp.Precision(t.precision))
+			ntp.Options(Precision(t.precision))
 		}
 
 		if t.addSeparator {
-			ntp.Options(ntp.Separator(t.separator))
+			ntp.Options(Separator(t.separator))
 		}
 
 		if t.addDelimiter {
-			ntp.Options(ntp.Delimiter(t.delimiter))
+			ntp.Options(Delimiter(t.delimiter))
 		}
 
 		a.Equal(t.out, ntp.Perform(t.in))
