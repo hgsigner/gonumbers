@@ -51,7 +51,8 @@ func rounded_number(n float64, precision int) string {
 	return strconv.FormatFloat(rb, 'f', -1, 64)
 }
 
-// Splits a string of numbers is groups of thousands
+//Splits a string of numbers into groups of thousands.
+//E.g. "123456" => []string{"123", "456"}
 func group_in_thousands(val string) []string {
 	slice := make([]string, 0)
 	times := math.Ceil(float64(len(val)) / 3.0)
