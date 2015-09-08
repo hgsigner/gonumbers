@@ -11,6 +11,8 @@ type NumberToDelimiter struct {
 	isSeparatorSet, isDelimiterSet bool
 }
 
+//It sets up options for NumberToDelimiter.
+//It receives: gonumbers.Separator(string) and gonumbers.Delimiter(string)
 func (ntd *NumberToDelimiter) Options(options ...interface{}) {
 	for _, opt := range options {
 		switch opt.(type) {
@@ -32,6 +34,7 @@ func (ntd *NumberToDelimiter) setDelimiter(d string) {
 	ntd.isDelimiterSet = true
 }
 
+//It performs the formating of a float64 number.
 func (ntd *NumberToDelimiter) Perform(n float64) string {
 
 	if !ntd.isSeparatorSet {

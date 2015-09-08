@@ -12,6 +12,8 @@ type NumberToCurrency struct {
 	isUnitSet, isSeparatorSet, isDelimiterSet, isPrecisionSet bool
 }
 
+//It sets up options for NumberToCurrency.
+//It receives: gonumbers.Precision(int), gonumbers.Unit(string), gonumbers.Separator(string) and gonumbers.Delimiter(string)
 func (ntc *NumberToCurrency) Options(options ...interface{}) {
 	for _, opt := range options {
 		switch opt.(type) {

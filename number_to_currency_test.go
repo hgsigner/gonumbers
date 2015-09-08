@@ -1,9 +1,10 @@
-package gonumbers
+package gonumbers_test
 
 import (
 	"fmt"
 	"testing"
 
+	"github.com/hgsigner/gonumbers"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -70,33 +71,61 @@ var testsNTC = []struct {
 	},
 }
 
-func Example_NumberToCurrency() {
-	ntc1 := NewNumberToCurrency()
+func Test_NumberToCurrency(t *testing.T) {
+
+	a := assert.New(t)
+
+	for _, t := range testsNTC {
+		ntc := gonumbers.NewNumberToCurrency()
+
+		if t.addPrecision {
+			ntc.Options(gonumbers.Precision(t.precision))
+		}
+
+		if t.addUnit {
+			ntc.Options(gonumbers.Unit(t.unit))
+		}
+
+		if t.addSeparator {
+			ntc.Options(gonumbers.Separator(t.separator))
+		}
+
+		if t.addDelimiter {
+			ntc.Options(gonumbers.Delimiter(t.delimiter))
+		}
+
+		a.Equal(t.out, ntc.Perform(t.in))
+	}
+
+}
+
+func ExampleNewNumberToCurrency() {
+	ntc1 := gonumbers.NewNumberToCurrency()
 	res1 := ntc1.Perform(1234567890.50)
 	fmt.Println(res1)
 
-	ntc2 := NewNumberToCurrency()
-	ntc2.Options(Precision(2))
+	ntc2 := gonumbers.NewNumberToCurrency()
+	ntc2.Options(gonumbers.Precision(2))
 	res2 := ntc2.Perform(1234567890.506)
 	fmt.Println(res2)
 
-	ntc3 := NewNumberToCurrency()
-	ntc3.Options(Precision(2), Unit("$"), Separator("."))
+	ntc3 := gonumbers.NewNumberToCurrency()
+	ntc3.Options(gonumbers.Precision(2), gonumbers.Unit("$"), gonumbers.Separator("."))
 	res3 := ntc3.Perform(1234567890)
 	fmt.Println(res3)
 
-	ntc4 := NewNumberToCurrency()
-	ntc4.Options(Precision(3), Unit("CAD$"), Separator("."), Delimiter(","))
+	ntc4 := gonumbers.NewNumberToCurrency()
+	ntc4.Options(gonumbers.Precision(3), gonumbers.Unit("CAD$"), gonumbers.Separator("."), gonumbers.Delimiter(","))
 	res4 := ntc4.Perform(1234567890.506)
 	fmt.Println(res4)
 
-	ntc5 := NewNumberToCurrency()
-	ntc5.Options(Precision(2), Separator("."), Delimiter(""))
+	ntc5 := gonumbers.NewNumberToCurrency()
+	ntc5.Options(gonumbers.Precision(2), gonumbers.Separator("."), gonumbers.Delimiter(""))
 	res5 := ntc5.Perform(1234567890.50)
 	fmt.Println(res5)
 
-	ntc6 := NewNumberToCurrency()
-	ntc6.Options(Precision(2), Separator(","), Delimiter("."))
+	ntc6 := gonumbers.NewNumberToCurrency()
+	ntc6.Options(gonumbers.Precision(2), gonumbers.Separator(","), gonumbers.Delimiter("."))
 	res6 := ntc6.Perform(1234567890.506)
 	fmt.Println(res6)
 
@@ -107,32 +136,4 @@ func Example_NumberToCurrency() {
 	// CAD$1,234,567,890.506
 	// $1234567890.50
 	// $1.234.567.890,51
-}
-
-func Test_NumberToCurrency(t *testing.T) {
-
-	a := assert.New(t)
-
-	for _, t := range testsNTC {
-		ntc := NewNumberToCurrency()
-
-		if t.addPrecision {
-			ntc.Options(Precision(t.precision))
-		}
-
-		if t.addUnit {
-			ntc.Options(Unit(t.unit))
-		}
-
-		if t.addSeparator {
-			ntc.Options(Separator(t.separator))
-		}
-
-		if t.addDelimiter {
-			ntc.Options(Delimiter(t.delimiter))
-		}
-
-		a.Equal(t.out, ntc.Perform(t.in))
-	}
-
 }

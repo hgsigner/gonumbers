@@ -36,11 +36,6 @@ type digitsSizer interface {
 	setDigitsSize(int)
 }
 
-type numberToDelimiterer interface {
-	separatorer
-	delimiterer
-}
-
 // Custom Types
 
 type unitOption func(uniter)
@@ -55,6 +50,7 @@ type digitsSizeOption func(digitsSizer)
 
 // Functions for api
 
+//It sets the unit for NumberToCurrency function
 func Unit(u string) unitOption {
 	return func(obj uniter) {
 		obj.setUnit(u)
@@ -103,6 +99,9 @@ func CountryCode(cc string) countryCodeOption {
 	}
 }
 
+/*
+It sets the number of digits for the second part of a phone number. e.g 1233334567 => gonumbers.DigitsSize(4) / 12-3333-4567 / gonumbers.DigitsSize(2) -> 1233-33-4567
+*/
 func DigitsSize(ds int) digitsSizeOption {
 	return func(obj digitsSizer) {
 		obj.setDigitsSize(ds)
@@ -111,26 +110,32 @@ func DigitsSize(ds int) digitsSizeOption {
 
 //Structs Inits
 
+// It initializes a new NumberToCurrency to permorf on.
 func NewNumberToCurrency() *NumberToCurrency {
 	return &NumberToCurrency{}
 }
 
+// It initializes a new NumberToDelimiter to permorf on.
 func NewNumberToDelimiter() *NumberToDelimiter {
 	return &NumberToDelimiter{}
 }
 
+// It initializes a new NumberToHumanSize to permorf on.
 func NewNumberToHumanSize() *NumberToHumanSize {
 	return &NumberToHumanSize{}
 }
 
+// It initializes a new NumberToHuman to permorf on.
 func NewNumberToHuman() *NumberToHuman {
 	return &NumberToHuman{}
 }
 
+// It initializes a new NumberToPercentage to permorf on.
 func NewNumberToPercentage() *NumberToPercentage {
 	return &NumberToPercentage{}
 }
 
+// It initializes a new NumberToPhone to permorf on.
 func NewNumberToPhone() *NumberToPhone {
 	return &NumberToPhone{}
 }
