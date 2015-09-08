@@ -74,7 +74,7 @@ func Test_NumberToCurrency(t *testing.T) {
 	}
 
 	for _, t := range tests {
-		ntc := &NumberToCurrency{}
+		ntc := NewNumberToCurrency()
 
 		if t.addPrecision {
 			ntc.Options(Precision(t.precision))

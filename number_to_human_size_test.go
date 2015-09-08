@@ -9,7 +9,7 @@ import (
 func Test_NumberToHumanSize(t *testing.T) {
 	a := assert.New(t)
 
-	nths1 := &NumberToHumanSize{}
+	nths1 := NewNumberToHumanSize()
 	nths1.Options(Prefix("ahhaha"))
 	nths1_final, err1 := nths1.Perform(123)
 	a.Error(err1)
@@ -63,7 +63,7 @@ func Test_NumberToHumanSize(t *testing.T) {
 	}
 
 	for _, t := range tests {
-		nths := &NumberToHumanSize{}
+		nths := NewNumberToHumanSize()
 		if t.addPrecision {
 			nths.Options(Precision(t.precision))
 		}

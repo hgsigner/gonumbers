@@ -108,3 +108,29 @@ func DigitsSize(ds int) digitsSizeOption {
 		obj.setDigitsSize(ds)
 	}
 }
+
+//Structs Inits
+
+func NewNumberToCurrency() *NumberToCurrency {
+	return &NumberToCurrency{}
+}
+
+func NewNumberToDelimiter() *NumberToDelimiter {
+	return &NumberToDelimiter{}
+}
+
+func NewNumberToHumanSize() *NumberToHumanSize {
+	return &NumberToHumanSize{}
+}
+
+func NewNumberToHuman() *NumberToHuman {
+	return &NumberToHuman{}
+}
+
+func NewNumberToPercentage() *NumberToPercentage {
+	return &NumberToPercentage{}
+}
+
+func NewNumberToPhone() *NumberToPhone {
+	return &NumberToPhone{}
+}

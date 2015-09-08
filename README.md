@@ -19,27 +19,27 @@ import (
 )
 
 func main(){
-	ntc := new(gonumbers.NumberToCurrency)
+	ntc := gonumbers.NewNumberToCurrency()
 	ntc.Options(gonumbers.Precision(2))
 	ntc_final := ntc.Perform(1234567890.506)
 	ftm.Println(ntc_final) // "$1,234,567,890.51"
 
-	ntd := new(gonumbers.NumberToDelimiter)
+	ntd := gonumbers.NewNumberToDelimiter()
 	ntd.Options(gonumbers.Separator("."), gonumbers.Delimiter(","))
 	ntd_final := ntd.Perform(1234567890.506)
 	ftm.Println(ntd_final) // "1,234,567,890.506"
 
-	nth := new(gonumbers.NumberToHuman)
+	nth := gonumbers.NewNumberToHuman()
 	nth.Options(gonumbers.Separator(","), gonumbers.Precision(2))
 	nth_final := nth.Perform(489939)
 	ftm.Println(nth_final) // "489,9 Thousand"
 	
-	ntp := new(gonumbers.NumberToPercentage)
+	ntp := gonumbers.NewNumberToPercentage()
 	ntp.Options(gonumbers.Separator(","), gonumbers.Delimiter("."))
 	ntp_final := ntp.Perform(1000)
 	ftm.Println(ntp_final) // "1.000,000%"
 
-	ntph := new(gonumbers.NumberToPhone)
+	ntph := gonumbers.NewNumberToPhone()
 	ntph.Options(gonumbers.CountryCode("1"))
 	ntph_final, err := ntph.Perform(1235551234)
 	if err != nil{
@@ -47,7 +47,7 @@ func main(){
 	}
 	ftm.Println(ntph_final) // "+1-123-555-1234"
 
-	nths := new(gonumbers.NumberToHumanSize)
+	nths := gonumbers.NewNumberToHumanSize()
 	nths_final, err := nths.Perform(1235551234)
 	if err != nil{
 		fmt.Println(err)
@@ -66,26 +66,26 @@ func main(){
 *	**gonumbers.Delimiter(string):** 
 
 ```go
-ntc2 := new(gonumbers.NumberToCurrency)
+ntc2 := gonumbers.NumberToCurrency)
 ntc2.Perform(1234567890.50) // "$1,234,567,890.50"
 
-ntc3 := new(gonumbers.NumberToCurrency)
+ntc3 := gonumbers.NewNumberToCurrency()
 ntc3.Options(gonumbers.Precision(2))
 ntc3.Perform(1234567890.506) // "$1,234,567,890.51"
 
-ntc4 := new(gonumbers.NumberToCurrency)
+ntc4 := gonumbers.NewNumberToCurrency()
 ntc4.Options(gonumbers.Precision(2), gonumbers.Unit("$"), gonumbers.Separator("."))
 ntc4.Perform(1234567890) // "$1,234,567,890.00"
 
-ntc5 := new(gonumbers.NumberToCurrency)
+ntc5 := gonumbers.NewNumberToCurrency()
 ntc5.Options(gonumbers.Precision(3), gonumbers.Unit("CAD$"), gonumbers.Separator("."), gonumbers.Delimiter(","))
 ntc5.Perform(1234567890.506) // "CAD$1,234,567,890.506"
 
-ntc6 := new(gonumbers.NumberToCurrency)
+ntc6 := gonumbers.NewNumberToCurrency()
 ntc6.Options(gonumbers.Precision(2), gonumbers.Separator("."), gonumbers.Delimiter(""))
 ntc6.Perform(1234567890.50) // "$1234567890.50"
 
-ntc7 := new(gonumbers.NumberToCurrency)
+ntc7 := gonumbers.NewNumberToCurrency()
 ntc7.Options(gonumbers.Precision(2), gonumbers.Separator(","), gonumbers.Delimiter("."))
 ntc7.Perform(1234567890.506) // "$1.234.567.890,51"
 ```
@@ -98,22 +98,22 @@ ntc7.Perform(1234567890.506) // "$1.234.567.890,51"
 *	**gonumbers.Separator(string):** 
 
 ```go
-ntd1 := new(gonumbers.NumberToDelimiter)
+ntd1 := gonumbers.NewNumberToDelimiter()
 ntd1.Perform(1234567890) // "1,234,567,890"
 
-ntd2 := new(gonumbers.NumberToDelimiter)
+ntd2 := gonumbers.NewNumberToDelimiter()
 ntd2.Options(gonumbers.Separator("."), gonumbers.Delimiter(","))
 ntd2.Perform(1234567890.506) // "1,234,567,890.506"
 
-ntd3 := new(gonumbers.NumberToDelimiter)
+ntd3 := gonumbers.NewNumberToDelimiter()
 ntd3.Options(gonumbers.Separator("-"), gonumbers.Delimiter(":"))
 ntd3.Perform(1234567890.34) // "1:234:567:890-34"
 
-ntd4 := new(gonumbers.NumberToDelimiter)
+ntd4 := gonumbers.NewNumberToDelimiter()
 ntd4.Options(gonumbers.Separator("."), gonumbers.Delimiter(""))
 ntd4.Perform(1234567890.34) // "1234567890.34"
 
-ntd5 := new(gonumbers.NumberToDelimiter)
+ntd5 := gonumbers.NewNumberToDelimiter()
 ntd5.Options(gonumbers.Separator(""), gonumbers.Delimiter(""))
 ntd5.Perform(1234567890.34) // "123456789034"
 ```
@@ -126,25 +126,38 @@ ntd5.Perform(1234567890.34) // "123456789034"
 *	**gonumbers.Separator(string):** 
 
 ```go
-gonumbers.NumberToHuman(123) // "123"
+nth1 := gonumbers.NewNumberToHuman()
+nth1.Perform(123) // "123"
 
-gonumbers.NumberToHuman(1234) // "1.23 Thousand"
+nth2 := gonumbers.NewNumberToHuman()
+nth2.Perform(1234) // "1.23 Thousand"
 
-gonumbers.NumberToHuman(12345) // "12.3 Thousand"
+nth3 := gonumbers.NewNumberToHuman()
+nth3.Perform(12345) // "12.3 Thousand"
 
-gonumbers.NumberToHuman(1234567) // "1.23 Million"
+nth4 := gonumbers.NewNumberToHuman()
+nth4.Perform(1234567) // "1.23 Million"
 
-gonumbers.NumberToHuman(1234567890) // "1.23 Billion"
+nth5 := gonumbers.NewNumberToHuman()
+nth5.Perform(1234567890) // "1.23 Billion"
 
-gonumbers.NumberToHuman(1234567890123) // "1.23 Trillion"
+nth6 := gonumbers.NewNumberToHuman()
+nth6.Perform(1234567890123) // "1.23 Trillion"
 
-gonumbers.NumberToHuman(1234567890123456) // "1.23 Quadrillion"
+nth7 := gonumbers.NewNumberToHuman()
+nth7.Perform(1234567890123456) // "1.23 Quadrillion"
 
-gonumbers.NumberToHuman(489939, "precision:2") // "490 Thousand"
+nth8 := gonumbers.NewNumberToHuman()
+nth8.Options(gonumbers.Precision(2))
+nth8.Perform(489939) // "490 Thousand"
 
-gonumbers.NumberToHuman(489939, "precision:4") // "489.9 Thousand"
+nth9 := gonumbers.NewNumberToHuman()
+nth9.Options(gonumbers.Precision(4))
+nth9.Perform(489939) // "489.9 Thousand"
 
-gonumbers.NumberToHuman(489939, "precision:4", "separator:,") // "489,9 Thousand"
+nth10 := gonumbers.NewNumberToHuman()
+nth10.Options(gonumbers.Precision(4), gonumbers.Separator(","))
+nth10.Perform(489939) // "489,9 Thousand"
 ```
 
 ##Number to Human Size:
@@ -156,17 +169,26 @@ gonumbers.NumberToHuman(489939, "precision:4", "separator:,") // "489,9 Thousand
 *	**gonumbers.Prefix(string):** Defines if it is binary or si (default => binary)
 
 ```go
-gonumbers.NumberToHumanSize(333) // "333 Bytes"
+nths := gonumbers.NewNumberToHumanSize()
+nths.Perform(333) // "333 Bytes"
 
-gonumbers.NumberToHumanSize(1234) // "1.21 KB"
+nths := gonumbers.NewNumberToHumanSize()
+nths.Perform(1234) // "1.21 KB"
 
-gonumbers.NumberToHumanSize(1234567890) // "1.15 GB"
+nths := gonumbers.NewNumberToHumanSize()
+nths.Perform(1234567890) // "1.15 GB"
 
-gonumbers.NumberToHumanSize(1234567, "precision:2") // "1.2 MB"
+nths := gonumbers.NewNumberToHumanSize()
+nths.Options(gonumbers.Precision(2))
+nths.Perform(1234567) // "1.2 MB"
 
-gonumbers.NumberToHumanSize(1234567, "separator:,", "precision:2") // "1,2 MB"
+nths := gonumbers.NewNumberToHumanSize()
+nths.Options(gonumbers.Precision(2), gonumbers.Separator(","))
+nths.Perform(1234567) // "1,2 MB"
 
-gonumbers.NumberToHumanSize(524288000, "precision:5") // "500 MB"
+nths := gonumbers.NewNumberToHumanSize()
+nths.Options(gonumbers.Precision(5))
+nths.Perform(524288000) // "500 MB"
 ```
 
 ##Number to Percentage:
@@ -178,19 +200,29 @@ gonumbers.NumberToHumanSize(524288000, "precision:5") // "500 MB"
 *  **gonumbers.Delimiter(string):**
 
 ```go
-gonumbers.NumberToPercentage(100) // "100.000%"
+ntp := gonumbers.NewNumberToPercentage()
+ntp.Perform(100) // "100.000%"
 
-gonumbers.NumberToPercentage("98") // "98.000%"
+ntp := gonumbers.NewNumberToPercentage()
+ntp.Perform("98") // "98.000%"
 
-gonumbers.NumberToPercentage(100, "precision:0") // "100%"
+ntp := gonumbers.NewNumberToPercentage()
+npt.Options(gonumbers.Precision(0))
+ntp.Perform(100) // "100%"
 
-gonumbers.NumberToPercentage(1000) // "1,000.000%"
+ntp := gonumbers.NewNumberToPercentage()
+ntp.Perform(1000) // "1,000.000%"
 
-gonumbers.NumberToPercentage(1000, "delimiter:.", "separator:,") // "1.000,000%"
+ntp := gonumbers.NewNumberToPercentage()
+npt.Options(gonumbers.Delimiter("."), gonumbers.Separator(","))
+ntp.Perform(1000) // "1.000,000%"
 
-gonumbers.NumberToPercentage(302.24398923423, "precision:5") // "302.24399%"
+ntp := gonumbers.NewNumberToPercentage()
+npt.Options(gonumbers.Precision(5))
+ntp.Perform(302.24398923423) // "302.24399%"
 
-gonumbers.NumberToPercentage("hahahah") // "0.000%"
+ntp := gonumbers.NewNumberToPercentage()
+ntp.Perform("hahahah") // "0.000%"
 ```
 
 ##Number to Phone:
@@ -204,21 +236,35 @@ gonumbers.NumberToPercentage("hahahah") // "0.000%"
 *	**gonumbers.DigitsSize(int):** Sets the number of digits of the second part of the phone (digits_count:5). Ex. 1234555556789 => 1234-55555-6789
 
 ```go
-gonumbers.NumberToPhone(5551234) // "555-1234"
+ntph := gonumbers.NewNumberToPhone()
+ntph.Perform(5551234) // "555-1234"
 
-gonumbers.NumberToPhone(1235551234) // "123-555-1234"
+ntph := gonumbers.NewNumberToPhone()
+ntph.Perform(1235551234) // "123-555-1234"
 
-gonumbers.NumberToPhone(1235551234, "area_code:true") // (123) 555-1234
+ntph := gonumbers.NewNumberToPhone()
+ntph.Options(gonumbers.Areacode(true))
+ntph.Perform(1235551234) // (123) 555-1234 
 
-gonumbers.NumberToPhone(1235551234, "area_code:true", "country_code:1") // "+1(123) 555-1234"
+ntph := gonumbers.NewNumberToPhone()
+ntph.Options(gonumbers.Areacode(true), gonumbers.CountryCode("1"))
+ntph.Perform(1235551234) // "+1(123) 555-1234"
 
-gonumbers.NumberToPhone(1235551234, "country_code:1") // "+1-123-555-1234"
+ntph := gonumbers.NewNumberToPhone()
+ntph.Options(gonumbers.CountryCode("1"))
+ntph.Perform(1235551234) // "+1-123-555-1234"
 
-gonumbers.NumberToPhone(1234555556789, "area_code:true", "country_code:1", "extension:4545") // +1(123455) 555-6789 x 4545
+ntph := gonumbers.NewNumberToPhone()
+ntph.Options(gonumbers.AreaCode(true), gonumbers.CountryCode("1"), gonumbers.Extension("4545"))
+ntph.Perform(1235551234) // +1(123455) 555-6789 x 4545
 
-gonumbers.NumberToPhone(1234555556789, "area_code:true", "country_code:1", "extension:4545", "digits_size:5") // "+1(1234) 55555-6789 x 4545"
+ntph := gonumbers.NewNumberToPhone()
+ntph.Options(gonumbers.AreaCode(true), gonumbers.CountryCode("1"), gonumbers.Extension("4545"), gonumbers.DigitsSize(5))
+ntph.Perform(1235551234) // "+1(1234) 55555-6789 x 4545"
 
-gonumbers.NumberToPhone(1234555556789, "area_code:true", "country_code:55", "digits_size:5", "delimiter:,") // "+55(1234) 55555,6789"
+ntph := gonumbers.NewNumberToPhone()
+ntph.Options(gonumbers.AreaCode(true), gonumbers.CountryCode("55"), gonumbers.Delimiter(","), gonumbers.DigitsSize(5))
+ntph.Perform(1235551234) // "+55(1234) 55555,6789"
 ```
 
 **This is a work in progress.**

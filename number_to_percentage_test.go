@@ -44,7 +44,7 @@ func Test_NumberToPercentage(t *testing.T) {
 	}
 
 	for _, t := range tests {
-		ntp := &NumberToPercentage{}
+		ntp := NewNumberToPercentage()
 
 		if t.addPrecision {
 			ntp.Options(Precision(t.precision))

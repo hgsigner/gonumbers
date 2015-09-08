@@ -9,13 +9,13 @@ import (
 func Test_NumberToPhone(t *testing.T) {
 	a := assert.New(t)
 
-	ntph_err1 := &NumberToPhone{}
+	ntph_err1 := NewNumberToPhone()
 	ntph_err1_resp, err1 := ntph_err1.Perform("good")
 	a.Error(err1)
 	a.Contains(err1.Error(), "The value should an integer.")
 	a.Equal("", ntph_err1_resp)
 
-	ntph_err2 := &NumberToPhone{}
+	ntph_err2 := NewNumberToPhone()
 	ntph_err2_resp, err2 := ntph_err2.Perform("123abc456")
 	a.Error(err2)
 	a.Contains(err2.Error(), "The value should an integer.")
@@ -112,7 +112,7 @@ func Test_NumberToPhone(t *testing.T) {
 	}
 
 	for _, t := range tests {
-		ntph := &NumberToPhone{}
+		ntph := NewNumberToPhone()
 
 		if t.addDelimiter {
 			ntph.Options(Delimiter(t.delimiter))

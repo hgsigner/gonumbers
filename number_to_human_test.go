@@ -47,7 +47,7 @@ func Test_NumberToHuman(t *testing.T) {
 	}
 
 	for _, t := range tests {
-		nth := &NumberToHuman{}
+		nth := NewNumberToHuman()
 		if t.addPrecision {
 			nth.Options(Precision(t.precision))
 		}

@@ -54,7 +54,7 @@ func Test_NumberToDelimiter(t *testing.T) {
 	}
 
 	for _, t := range tests {
-		ntd := new(NumberToDelimiter)
+		ntd := NewNumberToDelimiter()
 		if t.addSeparator {
 			ntd.Options(Separator(t.separator))
 		}
