@@ -66,7 +66,7 @@ func main(){
 *	**gonumbers.Delimiter(string):** 
 
 ```go
-ntc2 := gonumbers.NumberToCurrency)
+ntc2 := gonumbers.NewNumberToCurrency()
 ntc2.Perform(1234567890.50) // "$1,234,567,890.50"
 
 ntc3 := gonumbers.NewNumberToCurrency()
