@@ -86,7 +86,7 @@ func Prefix(p string) prefixOption {
 	}
 }
 
-// It wraps the area code into parenthesis. E.g. (123) 444-5678
+// It wraps the area code parenthesis. E.g. (123) 444-5678
 func AreaCode(ac bool) areaCodeOption {
 	return func(obj areaCoder) {
 		obj.setAreaCode(ac)
