@@ -1,21 +1,23 @@
-package gonumbers
+package gonumbers_test
 
 import (
+	"fmt"
 	"testing"
 
+	"github.com/hgsigner/gonumbers"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_NumberToPhone(t *testing.T) {
 	a := assert.New(t)
 
-	ntph_err1 := NewNumberToPhone()
+	ntph_err1 := gonumbers.NewNumberToPhone()
 	ntph_err1_resp, err1 := ntph_err1.Perform("good")
 	a.Error(err1)
 	a.Contains(err1.Error(), "The value should an integer.")
 	a.Equal("", ntph_err1_resp)
 
-	ntph_err2 := NewNumberToPhone()
+	ntph_err2 := gonumbers.NewNumberToPhone()
 	ntph_err2_resp, err2 := ntph_err2.Perform("123abc456")
 	a.Error(err2)
 	a.Contains(err2.Error(), "The value should an integer.")
@@ -112,26 +114,26 @@ func Test_NumberToPhone(t *testing.T) {
 	}
 
 	for _, t := range tests {
-		ntph := NewNumberToPhone()
+		ntph := gonumbers.NewNumberToPhone()
 
 		if t.addDelimiter {
-			ntph.Options(Delimiter(t.delimiter))
+			ntph.Options(gonumbers.Delimiter(t.delimiter))
 		}
 
 		if t.addAreaCode {
-			ntph.Options(AreaCode(t.areaCode))
+			ntph.Options(gonumbers.AreaCode(t.areaCode))
 		}
 
 		if t.addExtension {
-			ntph.Options(Extension(t.extension))
+			ntph.Options(gonumbers.Extension(t.extension))
 		}
 
 		if t.addCountryCode {
-			ntph.Options(CountryCode(t.countryCode))
+			ntph.Options(gonumbers.CountryCode(t.countryCode))
 		}
 
 		if t.addDigitsSize {
-			ntph.Options(DigitsSize(t.digitsSize))
+			ntph.Options(gonumbers.DigitsSize(t.digitsSize))
 		}
 
 		ntph_final, _ := ntph.Perform(t.in)
@@ -139,48 +141,77 @@ func Test_NumberToPhone(t *testing.T) {
 	}
 }
 
-func Test_SplitToPhoneFormat(t *testing.T) {
-	a := assert.New(t)
-
-	tests := []struct {
-		val       string
-		precision int
-		out       []string
-	}{
-		{
-			val:       "5551234",
-			precision: 3,
-			out:       []string{"555", "1234"},
-		},
-		{
-			val:       "55551234",
-			precision: 3,
-			out:       []string{"5", "555", "1234"},
-		},
-		{
-			val:       "55551234",
-			precision: 4,
-			out:       []string{"5555", "1234"},
-		},
-		{
-			val:       "1235551234",
-			precision: 3,
-			out:       []string{"123", "555", "1234"},
-		},
-		{
-			val:       "1231235551234",
-			precision: 3,
-			out:       []string{"123123", "555", "1234"},
-		},
-		{
-			val:       "1231235551234",
-			precision: 4,
-			out:       []string{"12312", "3555", "1234"},
-		},
+func ExampleNewNumberToPhone() {
+	ntph1 := gonumbers.NewNumberToPhone()
+	resp1, err1 := ntph1.Perform(5551234)
+	if err1 != nil {
+		fmt.Println(err1)
 	}
+	fmt.Println(resp1)
 
-	for _, t := range tests {
-		a.Equal(t.out, split_to_phone_format(t.val, t.precision))
+	ntph2 := gonumbers.NewNumberToPhone()
+	resp2, err2 := ntph2.Perform(1235551234)
+	if err2 != nil {
+		fmt.Println(err2)
 	}
+	fmt.Println(resp2)
+
+	ntph3 := gonumbers.NewNumberToPhone()
+	ntph3.Options(gonumbers.AreaCode(true))
+	resp3, err3 := ntph3.Perform(1235551234)
+	if err3 != nil {
+		fmt.Println(err3)
+	}
+	fmt.Println(resp3)
+
+	ntph4 := gonumbers.NewNumberToPhone()
+	ntph4.Options(gonumbers.AreaCode(true), gonumbers.CountryCode("1"))
+	resp4, err4 := ntph4.Perform(1235551234)
+	if err4 != nil {
+		fmt.Println(err4)
+	}
+	fmt.Println(resp4)
+
+	ntph5 := gonumbers.NewNumberToPhone()
+	ntph5.Options(gonumbers.CountryCode("1"))
+	resp5, err5 := ntph5.Perform(1235551234)
+	if err5 != nil {
+		fmt.Println(err5)
+	}
+	fmt.Println(resp5)
+
+	ntph6 := gonumbers.NewNumberToPhone()
+	ntph6.Options(gonumbers.AreaCode(true), gonumbers.CountryCode("1"), gonumbers.Extension("4545"))
+	resp6, err6 := ntph6.Perform(1235551234)
+	if err6 != nil {
+		fmt.Println(err6)
+	}
+	fmt.Println(resp6)
+
+	ntph7 := gonumbers.NewNumberToPhone()
+	ntph7.Options(gonumbers.AreaCode(true), gonumbers.CountryCode("1"), gonumbers.Extension("4545"), gonumbers.DigitsSize(5))
+	resp7, err7 := ntph7.Perform(1234555556789)
+	if err7 != nil {
+		fmt.Println(err7)
+	}
+	fmt.Println(resp7)
+
+	ntph8 := gonumbers.NewNumberToPhone()
+	ntph8.Options(gonumbers.AreaCode(true), gonumbers.CountryCode("55"), gonumbers.Delimiter(","), gonumbers.DigitsSize(5))
+	resp8, err8 := ntph8.Perform(1234555556789)
+	if err8 != nil {
+		fmt.Println(err8)
+	}
+	fmt.Println(resp8)
+
+	// Output:
+	// 555-1234
+	// 123-555-1234
+	// (123) 555-1234
+	// +1(123) 555-1234
+	// +1-123-555-1234
+	// +1(123) 555-1234 x 4545
+	// +1(1234) 55555-6789 x 4545
+	// +55(1234) 55555,6789
 
 }

@@ -57,42 +57,50 @@ func Unit(u string) unitOption {
 	}
 }
 
+// Sets precision of the number.
 func Precision(p int) precisionOption {
 	return func(obj precisioner) {
 		obj.setPrecision(p)
 	}
 }
 
+// Defines the separator for the number.
 func Separator(s string) separatorOption {
 	return func(obj separatorer) {
 		obj.setSeparator(s)
 	}
 }
 
+// Defines the delimiter for the number.
 func Delimiter(d string) delimiterOption {
 	return func(obj delimiterer) {
 		obj.setDelimiter(d)
 	}
 }
 
+// Defines if it prefix for converting numbers to human size.
+//It could be either binary or si (default => binary).
 func Prefix(p string) prefixOption {
 	return func(obj prefixarer) {
 		obj.setPrefix(p)
 	}
 }
 
+// It wraps the area code into parenthesis. E.g. (123) 444-5678
 func AreaCode(ac bool) areaCodeOption {
 	return func(obj areaCoder) {
 		obj.setAreaCode(ac)
 	}
 }
 
+// It appends the extension to phone numbers. E.g. ...-6789 x 4545
 func Extension(ex string) extensionOption {
 	return func(obj extensioner) {
 		obj.setExtension(ex)
 	}
 }
 
+// It adds the country code to phone numbers. E.g +1(123)...
 func CountryCode(cc string) countryCodeOption {
 	return func(obj countryCoder) {
 		obj.setCountryCode(cc)

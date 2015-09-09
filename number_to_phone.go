@@ -21,6 +21,8 @@ type NumberToPhone struct {
 	isDigitsSizeSet  bool
 }
 
+//It sets up options for NumberToPhone.
+//It receives: gonumbers.Delimiter(string), gonumbers.AreaCode(bool), gonumbers.Extension(string), gonumbers.CountryCode(string) and gonumbers.DigitsSize(int)
 func (ntph *NumberToPhone) Options(options ...interface{}) {
 	for _, opt := range options {
 		switch opt.(type) {
@@ -63,6 +65,11 @@ func (ntph *NumberToPhone) setDigitsSize(ds int) {
 	ntph.isDigitsSizeSet = true
 }
 
+//It performs the convertion of the input into phone number format.
+//It accepts an interface, but only values related to numbers
+//(e.g. floats, ints) or a string that could be parsed
+//to float (e.g. "12345").
+//Inputs that are not related to numbers will return an error.
 func (ntph *NumberToPhone) Perform(val interface{}) (string, error) {
 
 	// Parse val

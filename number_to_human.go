@@ -12,6 +12,8 @@ type NumberToHuman struct {
 	isSeparatorSet, isPrecisionSet bool
 }
 
+//It sets up options for NumberToHuman.
+//It receives: gonumbers.Precision(int) and gonumbers.Separator(string)
 func (nth *NumberToHuman) Options(options ...interface{}) {
 	for _, opt := range options {
 		switch opt.(type) {
@@ -33,6 +35,7 @@ func (nth *NumberToHuman) setPrecision(p int) {
 	nth.isPrecisionSet = true
 }
 
+//It performs the formating of a float64 number.
 func (nth *NumberToHuman) Perform(n float64) string {
 
 	// Inits

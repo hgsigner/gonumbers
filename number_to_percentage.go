@@ -13,6 +13,8 @@ type NumberToPercentage struct {
 	isPrecisionSet, isSeparatorSet, isDelimiterSet bool
 }
 
+//It sets up options for NumberToPercentage.
+//It receives: gonumbers.Precision(int), gonumbers.Separator(string) and gonumbers.Delimiter(string)
 func (ntp *NumberToPercentage) Options(options ...interface{}) {
 	for _, opt := range options {
 		switch opt.(type) {
@@ -41,7 +43,7 @@ func (ntp *NumberToPercentage) setDelimiter(d string) {
 	ntp.isDelimiterSet = true
 }
 
-//It performs the convertion of the input to percentage.
+//It performs the convertion of the input into percentage.
 //It accepts an interface, but only values related to numbers
 //(e.g. floats, ints) or a string that could be parsed
 //to float (e.g. "12345").

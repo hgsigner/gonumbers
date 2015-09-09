@@ -19,6 +19,8 @@ type NumberToHumanSize struct {
 	isPrefixSet    bool
 }
 
+//It sets up options for NumberToHumanSize.
+//It receives: gonumbers.Precision(int), gonumbers.Separator(string) and gonumbers.Delimiter(string) and gonumbers.Prefix(string)
 func (nths *NumberToHumanSize) Options(options ...interface{}) {
 	for _, opt := range options {
 		switch opt.(type) {
@@ -54,6 +56,7 @@ func (nths *NumberToHumanSize) setPrefix(p string) {
 	nths.isPrefixSet = true
 }
 
+//It performs the formating of a float64 number. If prefix is not binary or si, it returns an error.
 func (nths *NumberToHumanSize) Perform(n float64) (string, error) {
 
 	st := []string{"byte", "kb", "mb", "gb", "tb"}
