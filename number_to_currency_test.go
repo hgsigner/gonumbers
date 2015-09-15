@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/hgsigner/gonumbers"
-	"github.com/stretchr/testify/assert"
 )
 
 var testsNTC = []struct {
@@ -73,28 +72,31 @@ var testsNTC = []struct {
 
 func Test_NumberToCurrency(t *testing.T) {
 
-	a := assert.New(t)
+	//a := assertest.New(t)
 
-	for _, t := range testsNTC {
+	for _, test := range testsNTC {
 		ntc := gonumbers.NewNumberToCurrency()
 
-		if t.addPrecision {
-			ntc.Options(gonumbers.Precision(t.precision))
+		if test.addPrecision {
+			ntc.Options(gonumbers.Precision(test.precision))
 		}
 
-		if t.addUnit {
-			ntc.Options(gonumbers.Unit(t.unit))
+		if test.addUnit {
+			ntc.Options(gonumbers.Unit(test.unit))
 		}
 
-		if t.addSeparator {
-			ntc.Options(gonumbers.Separator(t.separator))
+		if test.addSeparator {
+			ntc.Options(gonumbers.Separator(test.separator))
 		}
 
-		if t.addDelimiter {
-			ntc.Options(gonumbers.Delimiter(t.delimiter))
+		if test.addDelimiter {
+			ntc.Options(gonumbers.Delimiter(test.delimiter))
 		}
 
-		a.Equal(t.out, ntc.Perform(t.in))
+		p_ntc := ntc.Perform(test.in)
+		if p_ntc != test.out {
+			t.Errorf("\nExpected: %s\nGot:      %s", test.out, p_ntc)
+		}
 	}
 
 }
