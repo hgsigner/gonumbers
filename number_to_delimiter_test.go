@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_NumberToDelimiter(t *testing.T) {
+func Test_ToDelimiter(t *testing.T) {
 
 	a := assert.New(t)
 
@@ -56,7 +56,7 @@ func Test_NumberToDelimiter(t *testing.T) {
 	}
 
 	for _, t := range tests {
-		ntd := gonumbers.NewNumberToDelimiter()
+		ntd := gonumbers.ToDelimiter()
 		if t.addSeparator {
 			ntd.Options(gonumbers.Separator(t.separator))
 		}
@@ -68,23 +68,23 @@ func Test_NumberToDelimiter(t *testing.T) {
 
 }
 
-func ExampleNewNumberToDelimiter() {
-	ntd1 := gonumbers.NewNumberToDelimiter()
+func ExampleToDelimiter() {
+	ntd1 := gonumbers.ToDelimiter()
 	fmt.Println(ntd1.Perform(1234567890))
 
-	ntd2 := gonumbers.NewNumberToDelimiter()
+	ntd2 := gonumbers.ToDelimiter()
 	ntd2.Options(gonumbers.Separator("."), gonumbers.Delimiter(","))
 	fmt.Println(ntd2.Perform(1234567890.506))
 
-	ntd3 := gonumbers.NewNumberToDelimiter()
+	ntd3 := gonumbers.ToDelimiter()
 	ntd3.Options(gonumbers.Separator("-"), gonumbers.Delimiter(":"))
 	fmt.Println(ntd3.Perform(1234567890.34))
 
-	ntd4 := gonumbers.NewNumberToDelimiter()
+	ntd4 := gonumbers.ToDelimiter()
 	ntd4.Options(gonumbers.Separator("."), gonumbers.Delimiter(""))
 	fmt.Println(ntd4.Perform(1234567890.34))
 
-	ntd5 := gonumbers.NewNumberToDelimiter()
+	ntd5 := gonumbers.ToDelimiter()
 	ntd5.Options(gonumbers.Separator(""), gonumbers.Delimiter(""))
 	fmt.Println(ntd5.Perform(1234567890.34))
 

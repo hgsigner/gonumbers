@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_NumberToHuman(t *testing.T) {
+func Test_ToHuman(t *testing.T) {
 
 	a := assert.New(t)
 
@@ -49,7 +49,7 @@ func Test_NumberToHuman(t *testing.T) {
 	}
 
 	for _, t := range tests {
-		nth := gonumbers.NewNumberToHuman()
+		nth := gonumbers.ToHuman()
 		if t.addPrecision {
 			nth.Options(gonumbers.Precision(t.precision))
 		}
@@ -61,37 +61,37 @@ func Test_NumberToHuman(t *testing.T) {
 
 }
 
-func ExampleNewNumberToHuman() {
-	nth1 := gonumbers.NewNumberToHuman()
+func ExampleToHuman() {
+	nth1 := gonumbers.ToHuman()
 	fmt.Println(nth1.Perform(123))
 
-	nth2 := gonumbers.NewNumberToHuman()
+	nth2 := gonumbers.ToHuman()
 	fmt.Println(nth2.Perform(1234))
 
-	nth3 := gonumbers.NewNumberToHuman()
+	nth3 := gonumbers.ToHuman()
 	fmt.Println(nth3.Perform(12345))
 
-	nth4 := gonumbers.NewNumberToHuman()
+	nth4 := gonumbers.ToHuman()
 	fmt.Println(nth4.Perform(1234567))
 
-	nth5 := gonumbers.NewNumberToHuman()
+	nth5 := gonumbers.ToHuman()
 	fmt.Println(nth5.Perform(1234567890))
 
-	nth6 := gonumbers.NewNumberToHuman()
+	nth6 := gonumbers.ToHuman()
 	fmt.Println(nth6.Perform(1234567890123))
 
-	nth7 := gonumbers.NewNumberToHuman()
+	nth7 := gonumbers.ToHuman()
 	fmt.Println(nth7.Perform(1234567890123456))
 
-	nth8 := gonumbers.NewNumberToHuman()
+	nth8 := gonumbers.ToHuman()
 	nth8.Options(gonumbers.Precision(2))
 	fmt.Println(nth8.Perform(489939))
 
-	nth9 := gonumbers.NewNumberToHuman()
+	nth9 := gonumbers.ToHuman()
 	nth9.Options(gonumbers.Precision(4))
 	fmt.Println(nth9.Perform(489939))
 
-	nth10 := gonumbers.NewNumberToHuman()
+	nth10 := gonumbers.ToHuman()
 	nth10.Options(gonumbers.Precision(4), gonumbers.Separator(","))
 	fmt.Println(nth10.Perform(489939))
 

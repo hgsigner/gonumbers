@@ -70,12 +70,12 @@ var testsNTC = []struct {
 	},
 }
 
-func Test_NumberToCurrency(t *testing.T) {
+func Test_ToCurrency(t *testing.T) {
 
 	//a := assertest.New(t)
 
 	for _, test := range testsNTC {
-		ntc := gonumbers.NewNumberToCurrency()
+		ntc := gonumbers.ToCurrency()
 
 		if test.addPrecision {
 			ntc.Options(gonumbers.Precision(test.precision))
@@ -101,32 +101,32 @@ func Test_NumberToCurrency(t *testing.T) {
 
 }
 
-func ExampleNewNumberToCurrency() {
-	ntc1 := gonumbers.NewNumberToCurrency()
+func ExampleToCurrency() {
+	ntc1 := gonumbers.ToCurrency()
 	res1 := ntc1.Perform(1234567890.50)
 	fmt.Println(res1)
 
-	ntc2 := gonumbers.NewNumberToCurrency()
+	ntc2 := gonumbers.ToCurrency()
 	ntc2.Options(gonumbers.Precision(2))
 	res2 := ntc2.Perform(1234567890.506)
 	fmt.Println(res2)
 
-	ntc3 := gonumbers.NewNumberToCurrency()
+	ntc3 := gonumbers.ToCurrency()
 	ntc3.Options(gonumbers.Precision(2), gonumbers.Unit("$"), gonumbers.Separator("."))
 	res3 := ntc3.Perform(1234567890)
 	fmt.Println(res3)
 
-	ntc4 := gonumbers.NewNumberToCurrency()
+	ntc4 := gonumbers.ToCurrency()
 	ntc4.Options(gonumbers.Precision(3), gonumbers.Unit("CAD$"), gonumbers.Separator("."), gonumbers.Delimiter(","))
 	res4 := ntc4.Perform(1234567890.506)
 	fmt.Println(res4)
 
-	ntc5 := gonumbers.NewNumberToCurrency()
+	ntc5 := gonumbers.ToCurrency()
 	ntc5.Options(gonumbers.Precision(2), gonumbers.Separator("."), gonumbers.Delimiter(""))
 	res5 := ntc5.Perform(1234567890.50)
 	fmt.Println(res5)
 
-	ntc6 := gonumbers.NewNumberToCurrency()
+	ntc6 := gonumbers.ToCurrency()
 	ntc6.Options(gonumbers.Precision(2), gonumbers.Separator(","), gonumbers.Delimiter("."))
 	res6 := ntc6.Perform(1234567890.506)
 	fmt.Println(res6)

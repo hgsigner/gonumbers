@@ -19,27 +19,27 @@ import (
 )
 
 func main(){
-	ntc := gonumbers.NewNumberToCurrency()
+	ntc := gonumbers.ToCurrency()
 	ntc.Options(gonumbers.Precision(2))
 	ntc_final := ntc.Perform(1234567890.506)
 	ftm.Println(ntc_final) // "$1,234,567,890.51"
 
-	ntd := gonumbers.NewNumberToDelimiter()
+	ntd := gonumbers.ToDelimiter()
 	ntd.Options(gonumbers.Separator("."), gonumbers.Delimiter(","))
 	ntd_final := ntd.Perform(1234567890.506)
 	ftm.Println(ntd_final) // "1,234,567,890.506"
 
-	nth := gonumbers.NewNumberToHuman()
+	nth := gonumbers.ToHuman()
 	nth.Options(gonumbers.Separator(","), gonumbers.Precision(2))
 	nth_final := nth.Perform(489939)
 	ftm.Println(nth_final) // "489,9 Thousand"
 	
-	ntp := gonumbers.NewNumberToPercentage()
+	ntp := gonumbers.ToPercentage()
 	ntp.Options(gonumbers.Separator(","), gonumbers.Delimiter("."))
 	ntp_final := ntp.Perform(1000)
 	ftm.Println(ntp_final) // "1.000,000%"
 
-	ntph := gonumbers.NewNumberToPhone()
+	ntph := gonumbers.ToPhone()
 	ntph.Options(gonumbers.CountryCode("1"))
 	ntph_final, err := ntph.Perform(1235551234)
 	if err != nil{
@@ -47,7 +47,7 @@ func main(){
 	}
 	ftm.Println(ntph_final) // "+1-123-555-1234"
 
-	nths := gonumbers.NewNumberToHumanSize()
+	nths := gonumbers.ToHumanSize()
 	nths_final, err := nths.Perform(1235551234)
 	if err != nil{
 		fmt.Println(err)

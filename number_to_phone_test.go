@@ -8,16 +8,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_NumberToPhone(t *testing.T) {
+func Test_ToPhone(t *testing.T) {
 	a := assert.New(t)
 
-	ntph_err1 := gonumbers.NewNumberToPhone()
+	ntph_err1 := gonumbers.ToPhone()
 	ntph_err1_resp, err1 := ntph_err1.Perform("good")
 	a.Error(err1)
 	a.Contains(err1.Error(), "The value should an integer.")
 	a.Equal("", ntph_err1_resp)
 
-	ntph_err2 := gonumbers.NewNumberToPhone()
+	ntph_err2 := gonumbers.ToPhone()
 	ntph_err2_resp, err2 := ntph_err2.Perform("123abc456")
 	a.Error(err2)
 	a.Contains(err2.Error(), "The value should an integer.")
@@ -114,7 +114,7 @@ func Test_NumberToPhone(t *testing.T) {
 	}
 
 	for _, t := range tests {
-		ntph := gonumbers.NewNumberToPhone()
+		ntph := gonumbers.ToPhone()
 
 		if t.addDelimiter {
 			ntph.Options(gonumbers.Delimiter(t.delimiter))
@@ -141,22 +141,22 @@ func Test_NumberToPhone(t *testing.T) {
 	}
 }
 
-func ExampleNewNumberToPhone() {
-	ntph1 := gonumbers.NewNumberToPhone()
+func ExampleToPhone() {
+	ntph1 := gonumbers.ToPhone()
 	resp1, err1 := ntph1.Perform(5551234)
 	if err1 != nil {
 		fmt.Println(err1)
 	}
 	fmt.Println(resp1)
 
-	ntph2 := gonumbers.NewNumberToPhone()
+	ntph2 := gonumbers.ToPhone()
 	resp2, err2 := ntph2.Perform(1235551234)
 	if err2 != nil {
 		fmt.Println(err2)
 	}
 	fmt.Println(resp2)
 
-	ntph3 := gonumbers.NewNumberToPhone()
+	ntph3 := gonumbers.ToPhone()
 	ntph3.Options(gonumbers.AreaCode(true))
 	resp3, err3 := ntph3.Perform(1235551234)
 	if err3 != nil {
@@ -164,7 +164,7 @@ func ExampleNewNumberToPhone() {
 	}
 	fmt.Println(resp3)
 
-	ntph4 := gonumbers.NewNumberToPhone()
+	ntph4 := gonumbers.ToPhone()
 	ntph4.Options(gonumbers.AreaCode(true), gonumbers.CountryCode("1"))
 	resp4, err4 := ntph4.Perform(1235551234)
 	if err4 != nil {
@@ -172,7 +172,7 @@ func ExampleNewNumberToPhone() {
 	}
 	fmt.Println(resp4)
 
-	ntph5 := gonumbers.NewNumberToPhone()
+	ntph5 := gonumbers.ToPhone()
 	ntph5.Options(gonumbers.CountryCode("1"))
 	resp5, err5 := ntph5.Perform(1235551234)
 	if err5 != nil {
@@ -180,7 +180,7 @@ func ExampleNewNumberToPhone() {
 	}
 	fmt.Println(resp5)
 
-	ntph6 := gonumbers.NewNumberToPhone()
+	ntph6 := gonumbers.ToPhone()
 	ntph6.Options(gonumbers.AreaCode(true), gonumbers.CountryCode("1"), gonumbers.Extension("4545"))
 	resp6, err6 := ntph6.Perform(1235551234)
 	if err6 != nil {
@@ -188,7 +188,7 @@ func ExampleNewNumberToPhone() {
 	}
 	fmt.Println(resp6)
 
-	ntph7 := gonumbers.NewNumberToPhone()
+	ntph7 := gonumbers.ToPhone()
 	ntph7.Options(gonumbers.AreaCode(true), gonumbers.CountryCode("1"), gonumbers.Extension("4545"), gonumbers.DigitsSize(5))
 	resp7, err7 := ntph7.Perform(1234555556789)
 	if err7 != nil {
@@ -196,7 +196,7 @@ func ExampleNewNumberToPhone() {
 	}
 	fmt.Println(resp7)
 
-	ntph8 := gonumbers.NewNumberToPhone()
+	ntph8 := gonumbers.ToPhone()
 	ntph8.Options(gonumbers.AreaCode(true), gonumbers.CountryCode("55"), gonumbers.Delimiter(","), gonumbers.DigitsSize(5))
 	resp8, err8 := ntph8.Perform(1234555556789)
 	if err8 != nil {

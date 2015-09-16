@@ -119,31 +119,31 @@ func DigitsSize(ds int) digitsSizeOption {
 //Structs Inits
 
 // It initializes a new NumberToCurrency to permorf on.
-func NewNumberToCurrency() *NumberToCurrency {
+func ToCurrency() *NumberToCurrency {
 	return &NumberToCurrency{}
 }
 
 // It initializes a new NumberToDelimiter to permorf on.
-func NewNumberToDelimiter() *NumberToDelimiter {
+func ToDelimiter() *NumberToDelimiter {
 	return &NumberToDelimiter{}
 }
 
 // It initializes a new NumberToHumanSize to permorf on.
-func NewNumberToHumanSize() *NumberToHumanSize {
+func ToHumanSize() *NumberToHumanSize {
 	return &NumberToHumanSize{}
 }
 
 // It initializes a new NumberToHuman to permorf on.
-func NewNumberToHuman() *NumberToHuman {
+func ToHuman() *NumberToHuman {
 	return &NumberToHuman{}
 }
 
 // It initializes a new NumberToPercentage to permorf on.
-func NewNumberToPercentage() *NumberToPercentage {
+func ToPercentage() *NumberToPercentage {
 	return &NumberToPercentage{}
 }
 
 // It initializes a new NumberToPhone to permorf on.
-func NewNumberToPhone() *NumberToPhone {
+func ToPhone() *NumberToPhone {
 	return &NumberToPhone{}
 }

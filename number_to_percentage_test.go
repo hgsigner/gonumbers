@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_NumberToPercentage(t *testing.T) {
+func Test_ToPercentage(t *testing.T) {
 
 	a := assert.New(t)
 
@@ -46,7 +46,7 @@ func Test_NumberToPercentage(t *testing.T) {
 	}
 
 	for _, t := range tests {
-		ntp := gonumbers.NewNumberToPercentage()
+		ntp := gonumbers.ToPercentage()
 
 		if t.addPrecision {
 			ntp.Options(gonumbers.Precision(t.precision))
@@ -65,29 +65,29 @@ func Test_NumberToPercentage(t *testing.T) {
 
 }
 
-func ExampleNewNumberToPercentage() {
-	ntp1 := gonumbers.NewNumberToPercentage()
+func ExampleToPercentage() {
+	ntp1 := gonumbers.ToPercentage()
 	fmt.Println(ntp1.Perform(100))
 
-	ntp2 := gonumbers.NewNumberToPercentage()
+	ntp2 := gonumbers.ToPercentage()
 	fmt.Println(ntp2.Perform("98"))
 
-	ntp3 := gonumbers.NewNumberToPercentage()
+	ntp3 := gonumbers.ToPercentage()
 	ntp3.Options(gonumbers.Precision(0))
 	fmt.Println(ntp3.Perform(100))
 
-	ntp4 := gonumbers.NewNumberToPercentage()
+	ntp4 := gonumbers.ToPercentage()
 	fmt.Println(ntp4.Perform(1000))
 
-	ntp5 := gonumbers.NewNumberToPercentage()
+	ntp5 := gonumbers.ToPercentage()
 	ntp5.Options(gonumbers.Delimiter("."), gonumbers.Separator(","))
 	fmt.Println(ntp5.Perform(1000))
 
-	ntp6 := gonumbers.NewNumberToPercentage()
+	ntp6 := gonumbers.ToPercentage()
 	ntp6.Options(gonumbers.Precision(5))
 	fmt.Println(ntp6.Perform(302.24398923423))
 
-	ntp7 := gonumbers.NewNumberToPercentage()
+	ntp7 := gonumbers.ToPercentage()
 	fmt.Println(ntp7.Perform("hahahah"))
 
 	// Output:
