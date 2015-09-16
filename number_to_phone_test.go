@@ -113,31 +113,33 @@ func Test_ToPhone(t *testing.T) {
 		},
 	}
 
-	for _, t := range tests {
+	for _, test := range tests {
 		ntph := gonumbers.ToPhone()
 
-		if t.addDelimiter {
-			ntph.Options(gonumbers.Delimiter(t.delimiter))
+		if test.addDelimiter {
+			ntph.Options(gonumbers.Delimiter(test.delimiter))
 		}
 
-		if t.addAreaCode {
-			ntph.Options(gonumbers.AreaCode(t.areaCode))
+		if test.addAreaCode {
+			ntph.Options(gonumbers.AreaCode(test.areaCode))
 		}
 
-		if t.addExtension {
-			ntph.Options(gonumbers.Extension(t.extension))
+		if test.addExtension {
+			ntph.Options(gonumbers.Extension(test.extension))
 		}
 
-		if t.addCountryCode {
-			ntph.Options(gonumbers.CountryCode(t.countryCode))
+		if test.addCountryCode {
+			ntph.Options(gonumbers.CountryCode(test.countryCode))
 		}
 
-		if t.addDigitsSize {
-			ntph.Options(gonumbers.DigitsSize(t.digitsSize))
+		if test.addDigitsSize {
+			ntph.Options(gonumbers.DigitsSize(test.digitsSize))
 		}
 
-		ntph_final, _ := ntph.Perform(t.in)
-		a.Equal(t.out, ntph_final)
+		ntph_final, _ := ntph.Perform(test.in)
+		if ntph_final != test.out {
+			t.Errorf("\nExpected: %s\nGot:      %s", test.out, ntph_final)
+		}
 	}
 }
 
