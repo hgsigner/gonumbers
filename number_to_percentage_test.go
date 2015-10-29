@@ -5,12 +5,11 @@ import (
 	"testing"
 
 	"github.com/hgsigner/gonumbers"
-	"github.com/stretchr/testify/assert"
 )
 
 func Test_ToPercentage(t *testing.T) {
 
-	a := assert.New(t)
+	//a := assert.New(t)
 
 	tests := []struct {
 		in                                       interface{}
@@ -45,22 +44,23 @@ func Test_ToPercentage(t *testing.T) {
 		{in: "hahahah", out: "0.000%"},
 	}
 
-	for _, t := range tests {
+	for _, test := range tests {
 		ntp := gonumbers.ToPercentage()
 
-		if t.addPrecision {
-			ntp.Options(gonumbers.Precision(t.precision))
+		if test.addPrecision {
+			ntp.Options(gonumbers.Precision(test.precision))
 		}
 
-		if t.addSeparator {
-			ntp.Options(gonumbers.Separator(t.separator))
+		if test.addSeparator {
+			ntp.Options(gonumbers.Separator(test.separator))
 		}
 
-		if t.addDelimiter {
-			ntp.Options(gonumbers.Delimiter(t.delimiter))
+		if test.addDelimiter {
+			ntp.Options(gonumbers.Delimiter(test.delimiter))
 		}
 
-		a.Equal(t.out, ntp.Perform(t.in))
+		assert(t, test.out, ntp.Perform(test.in))
+		//a.Equal(t.out, )
 	}
 
 }

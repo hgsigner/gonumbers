@@ -5,12 +5,9 @@ import (
 	"testing"
 
 	"github.com/hgsigner/gonumbers"
-	"github.com/stretchr/testify/assert"
 )
 
 func Test_ToDelimiter(t *testing.T) {
-
-	a := assert.New(t)
 
 	tests := []struct {
 		in           float64
@@ -55,15 +52,15 @@ func Test_ToDelimiter(t *testing.T) {
 		},
 	}
 
-	for _, t := range tests {
+	for _, test := range tests {
 		ntd := gonumbers.ToDelimiter()
-		if t.addSeparator {
-			ntd.Options(gonumbers.Separator(t.separator))
+		if test.addSeparator {
+			ntd.Options(gonumbers.Separator(test.separator))
 		}
-		if t.addDelimiter {
-			ntd.Options(gonumbers.Delimiter(t.delimiter))
+		if test.addDelimiter {
+			ntd.Options(gonumbers.Delimiter(test.delimiter))
 		}
-		a.Equal(t.out, ntd.Perform(t.in))
+		assert(t, test.out, ntd.Perform(test.in))
 	}
 
 }

@@ -93,10 +93,12 @@ func Test_ToCurrency(t *testing.T) {
 			ntc.Options(gonumbers.Delimiter(test.delimiter))
 		}
 
-		p_ntc := ntc.Perform(test.in)
-		if p_ntc != test.out {
-			t.Errorf("\nExpected: %s\nGot:      %s", test.out, p_ntc)
-		}
+		// p_ntc := ntc.Perform(test.in)
+		// if p_ntc != test.out {
+		// 	t.Errorf("\nExpected: %s\nGot:      %s", test.out, p_ntc)
+		// }
+
+		assert(t, test.out, ntc.Perform(test.in))
 	}
 
 }

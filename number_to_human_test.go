@@ -5,12 +5,11 @@ import (
 	"testing"
 
 	"github.com/hgsigner/gonumbers"
-	"github.com/stretchr/testify/assert"
 )
 
 func Test_ToHuman(t *testing.T) {
 
-	a := assert.New(t)
+	//a := assert.New(t)
 
 	tests := []struct {
 		in                         float64
@@ -48,15 +47,16 @@ func Test_ToHuman(t *testing.T) {
 		},
 	}
 
-	for _, t := range tests {
+	for _, test := range tests {
 		nth := gonumbers.ToHuman()
-		if t.addPrecision {
-			nth.Options(gonumbers.Precision(t.precision))
+		if test.addPrecision {
+			nth.Options(gonumbers.Precision(test.precision))
 		}
-		if t.addSeparator {
-			nth.Options(gonumbers.Separator(t.separator))
+		if test.addSeparator {
+			nth.Options(gonumbers.Separator(test.separator))
 		}
-		a.Equal(t.out, nth.Perform(t.in))
+		//a.Equal(t.out, nth.Perform(t.in))
+		assert(t, test.out, nth.Perform(test.in))
 	}
 
 }
