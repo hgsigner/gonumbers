@@ -9,8 +9,6 @@ import (
 
 func Test_ToPercentage(t *testing.T) {
 
-	//a := assert.New(t)
-
 	tests := []struct {
 		in                                       interface{}
 		out                                      string
@@ -60,7 +58,6 @@ func Test_ToPercentage(t *testing.T) {
 		}
 
 		assert(t, test.out, ntp.Perform(test.in))
-		//a.Equal(t.out, )
 	}
 
 }

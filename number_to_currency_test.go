@@ -72,8 +72,6 @@ var testsNTC = []struct {
 
 func Test_ToCurrency(t *testing.T) {
 
-	//a := assertest.New(t)
-
 	for _, test := range testsNTC {
 		ntc := gonumbers.ToCurrency()
 
@@ -92,11 +90,6 @@ func Test_ToCurrency(t *testing.T) {
 		if test.addDelimiter {
 			ntc.Options(gonumbers.Delimiter(test.delimiter))
 		}
-
-		// p_ntc := ntc.Perform(test.in)
-		// if p_ntc != test.out {
-		// 	t.Errorf("\nExpected: %s\nGot:      %s", test.out, p_ntc)
-		// }
 
 		assert(t, test.out, ntc.Perform(test.in))
 	}

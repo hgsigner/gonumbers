@@ -9,8 +9,6 @@ import (
 
 func Test_ToHuman(t *testing.T) {
 
-	//a := assert.New(t)
-
 	tests := []struct {
 		in                         float64
 		out                        string
@@ -55,7 +53,6 @@ func Test_ToHuman(t *testing.T) {
 		if test.addSeparator {
 			nth.Options(gonumbers.Separator(test.separator))
 		}
-		//a.Equal(t.out, nth.Perform(t.in))
 		assert(t, test.out, nth.Perform(test.in))
 	}
 

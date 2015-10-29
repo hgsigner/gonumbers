@@ -8,14 +8,13 @@ import (
 )
 
 func Test_ToHumanSize(t *testing.T) {
-	// a := assert.New(t)
 
-	// nths1 := gonumbers.ToHumanSize()
-	// nths1.Options(gonumbers.Prefix("ahhaha"))
-	// nths1_final, err1 := nths1.Perform(123)
-	// a.Error(err1)
-	// a.Contains(err1.Error(), "Prefix must be binary or si.")
-	// a.Equal("", nths1_final)
+	nths1 := gonumbers.ToHumanSize()
+	nths1.Options(gonumbers.Prefix("ahhaha"))
+	nths1_final, err1 := nths1.Perform(123)
+	assert_not(t, nil, err1)
+	contains(t, err1.Error(), "Prefix must be binary or si.")
+	assert(t, "", nths1_final)
 
 	tests := []struct {
 		in           float64
@@ -77,9 +76,8 @@ func Test_ToHumanSize(t *testing.T) {
 		if test.addPrefix {
 			nths.Options(gonumbers.Prefix(test.prefix))
 		}
-		nths_final, _ := nths.Perform(test.in)
-		//a.NoError(err)
-		//a.Equal(t.out, nths_final)
+		nths_final, err := nths.Perform(test.in)
+		assert(t, nil, err)
 		assert(t, test.out, nths_final)
 	}
 
