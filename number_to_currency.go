@@ -28,6 +28,7 @@ func (ntc *NumberToCurrency) Options(options ...interface{}) {
 	}
 }
 
+// Implements interfaces
 func (ntc *NumberToCurrency) setUnit(s string) {
 	ntc.unit = s
 }

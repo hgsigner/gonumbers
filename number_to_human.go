@@ -24,6 +24,7 @@ func (nth *NumberToHuman) Options(options ...interface{}) {
 	}
 }
 
+// Implements interfaces
 func (nth *NumberToHuman) setSeparator(s string) {
 	nth.separator = s
 }

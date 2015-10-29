@@ -1,7 +1,6 @@
 package gonumbers
 
 import (
-	"errors"
 	"fmt"
 	"math"
 	"strconv"
@@ -32,6 +31,7 @@ func (nths *NumberToHumanSize) Options(options ...interface{}) {
 	}
 }
 
+// Implements interfaces.
 func (nths *NumberToHumanSize) setPrecision(p int) {
 	nths.precision = p
 }
@@ -48,7 +48,8 @@ func (nths *NumberToHumanSize) setPrefix(p string) {
 	nths.prefix = p
 }
 
-//It performs the formating of a float64 number. If prefix is not binary or si, it returns an error.
+// Performs the formating of a float64 number.
+// If the prefix is not binary or si, it returns an error.
 func (nths *NumberToHumanSize) Perform(n float64) (string, error) {
 
 	st := []string{"byte", "kb", "mb", "gb", "tb"}
@@ -60,7 +61,7 @@ func (nths *NumberToHumanSize) Perform(n float64) (string, error) {
 	case "si":
 		base = 1000
 	default:
-		return "", errors.New("Prefix must be binary or si.")
+		return "", unknownBinaryPrefix
 	}
 
 	//Calc index of exponent

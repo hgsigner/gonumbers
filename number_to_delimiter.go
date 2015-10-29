@@ -23,6 +23,7 @@ func (ntd *NumberToDelimiter) Options(options ...interface{}) {
 	}
 }
 
+// Implements interfaces
 func (ntd *NumberToDelimiter) setSeparator(s string) {
 	ntd.separator = s
 }

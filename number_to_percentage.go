@@ -27,6 +27,7 @@ func (ntp *NumberToPercentage) Options(options ...interface{}) {
 	}
 }
 
+// Implements interfaces
 func (ntp *NumberToPercentage) setPrecision(p int) {
 	ntp.precision = p
 }

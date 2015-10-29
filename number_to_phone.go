@@ -1,7 +1,6 @@
 package gonumbers
 
 import (
-	"errors"
 	"fmt"
 	"reflect"
 	"strconv"
@@ -16,8 +15,10 @@ type NumberToPhone struct {
 	digitsSize  int
 }
 
-//It sets up options for NumberToPhone.
-//It receives: gonumbers.Delimiter(string), gonumbers.AreaCode(bool), gonumbers.Extension(string), gonumbers.CountryCode(string) and gonumbers.DigitsSize(int)
+// Sets up options for NumberToPhone.
+// Receives: gonumbers.Delimiter(string),
+// gonumbers.AreaCode(bool), gonumbers.Extension(string),
+// gonumbers.CountryCode(string) and gonumbers.DigitsSize(int)
 func (ntph *NumberToPhone) Options(options ...interface{}) {
 	for _, opt := range options {
 		switch opt.(type) {
@@ -35,6 +36,7 @@ func (ntph *NumberToPhone) Options(options ...interface{}) {
 	}
 }
 
+// Implements interfaces
 func (ntph *NumberToPhone) setDelimiter(d string) {
 	ntph.delimiter = d
 }
@@ -71,13 +73,13 @@ func (ntph *NumberToPhone) Perform(val interface{}) (string, error) {
 	case reflect.String:
 		_, err := strconv.ParseInt(val.(string), 0, 64)
 		if err != nil {
-			return "", errors.New("The value should an integer.")
+			return "", notIntegerError
 		}
 		parsed_val = val.(string)
 	case reflect.Int:
 		parsed_val = strconv.Itoa(val.(int))
 	default:
-		return "", errors.New("The value should an integer.")
+		return "", notIntegerError
 	}
 
 	// Format phone
@@ -92,11 +94,11 @@ func (ntph *NumberToPhone) Perform(val interface{}) (string, error) {
 			phone_rest_joined := strings.Join(phone_sliced, ntph.delimiter)
 
 			formated_phone = fmt.Sprintf("(%s) %s", ps_area_code, phone_rest_joined)
-			formated_phone = add_country_code(formated_phone, ntph.countryCode)
+			formated_phone = addCountryCode(formated_phone, ntph.countryCode)
 
 		} else {
 			formated_phone = strings.Join(phone_sliced, ntph.delimiter)
-			formated_phone = add_country_code(formated_phone, ntph.countryCode)
+			formated_phone = addCountryCode(formated_phone, ntph.countryCode)
 		}
 	} else {
 
@@ -120,6 +122,11 @@ func (ntph *NumberToPhone) Perform(val interface{}) (string, error) {
 	return formated_phone, nil
 }
 
+// Helper function that splits an string into a []string
+// given a second number length. E.g:
+// - val:               "1231235551234",
+// - second_number_len: 3,
+// - output:            []string{"123123", "555", "1234"}
 func splitToPhoneFormart(val string, second_number_len int) []string {
 
 	final_slice := make([]string, 0)
@@ -139,12 +146,10 @@ func splitToPhoneFormart(val string, second_number_len int) []string {
 
 }
 
-func add_country_code(phone, cc string) string {
-
+// Adds the area code if necessary.
+func addCountryCode(phone, cc string) string {
 	if cc != "" {
 		return fmt.Sprintf("+%s%s", cc, phone)
 	}
-
 	return phone
-
 }
