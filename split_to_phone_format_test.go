@@ -1,13 +1,12 @@
-package gonumbers
+package gonumbers_test
 
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/hgsigner/gonumbers"
 )
 
 func Test_SplitToPhoneFormat(t *testing.T) {
-	a := assert.New(t)
 
 	tests := []struct {
 		val       string
@@ -46,8 +45,8 @@ func Test_SplitToPhoneFormat(t *testing.T) {
 		},
 	}
 
-	for _, t := range tests {
-		a.Equal(t.out, split_to_phone_format(t.val, t.precision))
+	for _, test := range tests {
+		assert(t, test.out, gonumbers.SplitToPhoneFormart(test.val, test.precision))
 	}
 
 }

@@ -115,7 +115,7 @@ func (ntph *NumberToPhone) Perform(val interface{}) (string, error) {
 	// Format phone
 	var formated_phone string
 
-	phone_sliced := split_to_phone_format(parsed_val, ntph.digitsSize)
+	phone_sliced := splitToPhoneFormart(parsed_val, ntph.digitsSize)
 
 	if ntph.areaCode {
 		if len(phone_sliced) == 3 {
@@ -152,7 +152,7 @@ func (ntph *NumberToPhone) Perform(val interface{}) (string, error) {
 	return formated_phone, nil
 }
 
-func split_to_phone_format(val string, second_number_len int) []string {
+func splitToPhoneFormart(val string, second_number_len int) []string {
 
 	final_slice := make([]string, 0)
 

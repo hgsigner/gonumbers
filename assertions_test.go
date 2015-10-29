@@ -1,18 +1,19 @@
 package gonumbers_test
 
 import (
+	"reflect"
 	"strings"
 	"testing"
 )
 
 func assert(t *testing.T, expected, got interface{}) {
-	if got != expected {
+	if !reflect.DeepEqual(got, expected) {
 		t.Fatalf("\nExpected: %v\nGot:      %v", expected, got)
 	}
 }
 
 func assert_not(t *testing.T, expected, got interface{}) {
-	if got == expected {
+	if reflect.DeepEqual(got, expected) {
 		t.Fatalf("\nExpected: %v\nGot:      %v", expected, got)
 	}
 }
