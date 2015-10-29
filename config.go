@@ -120,30 +120,57 @@ func DigitsSize(ds int) digitsSizeOption {
 
 // It initializes a new NumberToCurrency to permorf on.
 func ToCurrency() *NumberToCurrency {
-	return &NumberToCurrency{}
+	return &NumberToCurrency{
+		unit:      "$",
+		separator: ".",
+		precision: 2,
+		delimiter: ",",
+	}
+
 }
 
 // It initializes a new NumberToDelimiter to permorf on.
 func ToDelimiter() *NumberToDelimiter {
-	return &NumberToDelimiter{}
+	return &NumberToDelimiter{
+		separator: ".",
+		delimiter: ",",
+	}
 }
 
 // It initializes a new NumberToHumanSize to permorf on.
 func ToHumanSize() *NumberToHumanSize {
-	return &NumberToHumanSize{}
+	return &NumberToHumanSize{
+		separator: ".",
+		precision: 3,
+		delimiter: "",
+		prefix:    "binary",
+	}
 }
 
 // It initializes a new NumberToHuman to permorf on.
 func ToHuman() *NumberToHuman {
-	return &NumberToHuman{}
+	return &NumberToHuman{
+		separator: ".",
+		precision: 3,
+	}
 }
 
 // It initializes a new NumberToPercentage to permorf on.
 func ToPercentage() *NumberToPercentage {
-	return &NumberToPercentage{}
+	return &NumberToPercentage{
+		separator: ".",
+		precision: 3,
+		delimiter: ",",
+	}
 }
 
 // It initializes a new NumberToPhone to permorf on.
 func ToPhone() *NumberToPhone {
-	return &NumberToPhone{}
+	return &NumberToPhone{
+		delimiter:   "-",
+		areaCode:    false,
+		extension:   "",
+		countryCode: "",
+		digitsSize:  3,
+	}
 }

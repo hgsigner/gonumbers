@@ -7,9 +7,8 @@ import (
 )
 
 type NumberToCurrency struct {
-	precision                                                 int
-	unit, separator, delimiter                                string
-	isUnitSet, isSeparatorSet, isDelimiterSet, isPrecisionSet bool
+	precision                  int
+	unit, separator, delimiter string
 }
 
 //It sets up options for NumberToCurrency.
@@ -31,43 +30,21 @@ func (ntc *NumberToCurrency) Options(options ...interface{}) {
 
 func (ntc *NumberToCurrency) setUnit(s string) {
 	ntc.unit = s
-	ntc.isUnitSet = true
 }
 
 func (ntc *NumberToCurrency) setPrecision(s int) {
 	ntc.precision = s
-	ntc.isPrecisionSet = true
 }
 
 func (ntc *NumberToCurrency) setSeparator(s string) {
 	ntc.separator = s
-	ntc.isSeparatorSet = true
 }
 
 func (ntc *NumberToCurrency) setDelimiter(d string) {
 	ntc.delimiter = d
-	ntc.isDelimiterSet = true
 }
 
 func (ntc *NumberToCurrency) Perform(n float64) string {
-
-	//Default values
-
-	if !ntc.isUnitSet {
-		ntc.unit = "$"
-	}
-
-	if !ntc.isSeparatorSet {
-		ntc.separator = "."
-	}
-
-	if !ntc.isPrecisionSet {
-		ntc.precision = 2
-	}
-
-	if !ntc.isDelimiterSet {
-		ntc.delimiter = ","
-	}
 
 	precision_pattern := fmt.Sprintf(".%df", ntc.precision)
 	number_with_precision := fmt.Sprintf("%"+precision_pattern, n)

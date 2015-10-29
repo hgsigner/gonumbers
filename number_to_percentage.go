@@ -8,9 +8,8 @@ import (
 )
 
 type NumberToPercentage struct {
-	precision                                      int
-	separator, delimiter                           string
-	isPrecisionSet, isSeparatorSet, isDelimiterSet bool
+	precision            int
+	separator, delimiter string
 }
 
 //It sets up options for NumberToPercentage.
@@ -30,17 +29,14 @@ func (ntp *NumberToPercentage) Options(options ...interface{}) {
 
 func (ntp *NumberToPercentage) setPrecision(p int) {
 	ntp.precision = p
-	ntp.isPrecisionSet = true
 }
 
 func (ntp *NumberToPercentage) setSeparator(s string) {
 	ntp.separator = s
-	ntp.isSeparatorSet = true
 }
 
 func (ntp *NumberToPercentage) setDelimiter(d string) {
 	ntp.delimiter = d
-	ntp.isDelimiterSet = true
 }
 
 //It performs the convertion of the input into percentage.
@@ -64,20 +60,6 @@ func (ntp *NumberToPercentage) Perform(val interface{}) string {
 		parsed_float = float64(val.(int))
 	case reflect.Float64:
 		parsed_float = val.(float64)
-	}
-
-	// Defaults
-
-	if !ntp.isSeparatorSet {
-		ntp.separator = "."
-	}
-
-	if !ntp.isPrecisionSet {
-		ntp.precision = 3
-	}
-
-	if !ntp.isDelimiterSet {
-		ntp.delimiter = ","
 	}
 
 	formated_val_splited := strings.Split(strconv.FormatFloat(parsed_float, 'f', ntp.precision, 64), ".")

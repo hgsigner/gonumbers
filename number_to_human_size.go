@@ -9,14 +9,10 @@ import (
 )
 
 type NumberToHumanSize struct {
-	precision      int
-	separator      string
-	delimiter      string
-	prefix         string
-	isSeparatorSet bool
-	isDelimiterSet bool
-	isPrecisionSet bool
-	isPrefixSet    bool
+	precision int
+	separator string
+	delimiter string
+	prefix    string
 }
 
 //It sets up options for NumberToHumanSize.
@@ -38,22 +34,18 @@ func (nths *NumberToHumanSize) Options(options ...interface{}) {
 
 func (nths *NumberToHumanSize) setPrecision(p int) {
 	nths.precision = p
-	nths.isPrecisionSet = true
 }
 
 func (nths *NumberToHumanSize) setSeparator(s string) {
 	nths.separator = s
-	nths.isSeparatorSet = true
 }
 
 func (nths *NumberToHumanSize) setDelimiter(d string) {
 	nths.delimiter = d
-	nths.isDelimiterSet = true
 }
 
 func (nths *NumberToHumanSize) setPrefix(p string) {
 	nths.prefix = p
-	nths.isPrefixSet = true
 }
 
 //It performs the formating of a float64 number. If prefix is not binary or si, it returns an error.
@@ -61,24 +53,6 @@ func (nths *NumberToHumanSize) Perform(n float64) (string, error) {
 
 	st := []string{"byte", "kb", "mb", "gb", "tb"}
 	var base float64
-
-	// Defaults
-
-	if !nths.isSeparatorSet {
-		nths.separator = "."
-	}
-
-	if !nths.isPrecisionSet {
-		nths.precision = 3
-	}
-
-	if !nths.isDelimiterSet {
-		nths.delimiter = ""
-	}
-
-	if !nths.isPrefixSet {
-		nths.prefix = "binary"
-	}
 
 	switch nths.prefix {
 	case "binary":

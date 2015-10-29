@@ -9,16 +9,11 @@ import (
 )
 
 type NumberToPhone struct {
-	delimiter        string
-	isDelimiterSet   bool
-	areaCode         bool
-	isAreaCodeSet    bool
-	extension        string
-	isExtensionSet   bool
-	countryCode      string
-	isCountryCodeSet bool
-	digitsSize       int
-	isDigitsSizeSet  bool
+	delimiter   string
+	areaCode    bool
+	extension   string
+	countryCode string
+	digitsSize  int
 }
 
 //It sets up options for NumberToPhone.
@@ -42,27 +37,22 @@ func (ntph *NumberToPhone) Options(options ...interface{}) {
 
 func (ntph *NumberToPhone) setDelimiter(d string) {
 	ntph.delimiter = d
-	ntph.isDelimiterSet = true
 }
 
 func (ntph *NumberToPhone) setAreaCode(ac bool) {
 	ntph.areaCode = ac
-	ntph.isAreaCodeSet = true
 }
 
 func (ntph *NumberToPhone) setExtension(ex string) {
 	ntph.extension = ex
-	ntph.isExtensionSet = true
 }
 
 func (ntph *NumberToPhone) setCountryCode(cc string) {
 	ntph.countryCode = cc
-	ntph.isCountryCodeSet = true
 }
 
 func (ntph *NumberToPhone) setDigitsSize(ds int) {
 	ntph.digitsSize = ds
-	ntph.isDigitsSizeSet = true
 }
 
 //It performs the convertion of the input into phone number format.
@@ -88,28 +78,6 @@ func (ntph *NumberToPhone) Perform(val interface{}) (string, error) {
 		parsed_val = strconv.Itoa(val.(int))
 	default:
 		return "", errors.New("The value should an integer.")
-	}
-
-	// Defaults
-
-	if !ntph.isDelimiterSet {
-		ntph.delimiter = "-"
-	}
-
-	if !ntph.isAreaCodeSet {
-		ntph.areaCode = false
-	}
-
-	if !ntph.isExtensionSet {
-		ntph.extension = ""
-	}
-
-	if !ntph.isCountryCodeSet {
-		ntph.countryCode = ""
-	}
-
-	if !ntph.isDigitsSizeSet {
-		ntph.digitsSize = 3
 	}
 
 	// Format phone

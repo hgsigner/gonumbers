@@ -7,8 +7,7 @@ import (
 )
 
 type NumberToDelimiter struct {
-	separator, delimiter           string
-	isSeparatorSet, isDelimiterSet bool
+	separator, delimiter string
 }
 
 //It sets up options for NumberToDelimiter.
@@ -26,24 +25,14 @@ func (ntd *NumberToDelimiter) Options(options ...interface{}) {
 
 func (ntd *NumberToDelimiter) setSeparator(s string) {
 	ntd.separator = s
-	ntd.isSeparatorSet = true
 }
 
 func (ntd *NumberToDelimiter) setDelimiter(d string) {
 	ntd.delimiter = d
-	ntd.isDelimiterSet = true
 }
 
 //It performs the formating of a float64 number.
 func (ntd *NumberToDelimiter) Perform(n float64) string {
-
-	if !ntd.isSeparatorSet {
-		ntd.separator = "."
-	}
-
-	if !ntd.isDelimiterSet {
-		ntd.delimiter = ","
-	}
 
 	s := strings.Split(strconv.FormatFloat(n, 'f', -1, 64), ".")
 

@@ -7,9 +7,8 @@ import (
 )
 
 type NumberToHuman struct {
-	precision                      int
-	separator                      string
-	isSeparatorSet, isPrecisionSet bool
+	precision int
+	separator string
 }
 
 //It sets up options for NumberToHuman.
@@ -27,12 +26,10 @@ func (nth *NumberToHuman) Options(options ...interface{}) {
 
 func (nth *NumberToHuman) setSeparator(s string) {
 	nth.separator = s
-	nth.isSeparatorSet = true
 }
 
 func (nth *NumberToHuman) setPrecision(p int) {
 	nth.precision = p
-	nth.isPrecisionSet = true
 }
 
 //It performs the formating of a float64 number.
@@ -41,16 +38,6 @@ func (nth *NumberToHuman) Perform(n float64) string {
 	// Inits
 
 	var final_value, gt_first, gt_second string
-
-	// Defaults
-
-	if !nth.isSeparatorSet {
-		nth.separator = "."
-	}
-
-	if !nth.isPrecisionSet {
-		nth.precision = 3
-	}
 
 	val := roundedNumber(n, nth.precision)
 	gt := groupInThousands(val)
