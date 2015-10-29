@@ -47,7 +47,7 @@ func (ntd *NumberToDelimiter) Perform(n float64) string {
 
 	s := strings.Split(strconv.FormatFloat(n, 'f', -1, 64), ".")
 
-	gt := group_in_thousands(s[0])
+	gt := groupInThousands(s[0])
 	fp_final := strings.Join(gt, ntd.delimiter)
 
 	var final_value string

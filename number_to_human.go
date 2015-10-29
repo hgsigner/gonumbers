@@ -52,8 +52,8 @@ func (nth *NumberToHuman) Perform(n float64) string {
 		nth.precision = 3
 	}
 
-	val := rounded_number(n, nth.precision)
-	gt := group_in_thousands(val)
+	val := roundedNumber(n, nth.precision)
+	gt := groupInThousands(val)
 
 	if len(gt) > 1 {
 

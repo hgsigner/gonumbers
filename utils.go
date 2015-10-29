@@ -15,7 +15,7 @@ func round(v float64) float64 {
 }
 
 // Rounds floats (e.g. 1.200000000001 -> 1.2) to a givan precision
-func round_with_precision(val float64, precision int) float64 {
+func roundWithPrecision(val float64, precision int) float64 {
 	var round float64
 	pow := math.Pow(10, float64(precision))
 	digit := pow * val
@@ -28,14 +28,14 @@ func round_with_precision(val float64, precision int) float64 {
 	return round / pow
 }
 
-func digits_count(n float64) int {
+func digitsCount(n float64) int {
 	dc := math.Floor(math.Log10(math.Abs(n)) + 1)
 	return int(dc)
 }
 
 // Rounds rational numbers to a given precision
-func rounded_number(n float64, precision int) string {
-	dc := digits_count(n)
+func roundedNumber(n float64, precision int) string {
+	dc := digitsCount(n)
 	mult := math.Pow10(dc - precision)
 
 	mstring := strconv.FormatFloat(float64(mult), 'f', -1, 64)
@@ -53,7 +53,7 @@ func rounded_number(n float64, precision int) string {
 
 //Splits a string of numbers into groups of thousands.
 //E.g. "123456" => []string{"123", "456"}
-func group_in_thousands(val string) []string {
+func groupInThousands(val string) []string {
 	slice := make([]string, 0)
 	times := math.Ceil(float64(len(val)) / 3.0)
 

@@ -81,7 +81,7 @@ func (ntp *NumberToPercentage) Perform(val interface{}) string {
 	}
 
 	formated_val_splited := strings.Split(strconv.FormatFloat(parsed_float, 'f', ntp.precision, 64), ".")
-	gt := group_in_thousands(formated_val_splited[0])
+	gt := groupInThousands(formated_val_splited[0])
 	joined_thousands := strings.Join(gt, ntp.delimiter)
 
 	var final_value string

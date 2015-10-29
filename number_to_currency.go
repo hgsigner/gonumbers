@@ -76,7 +76,7 @@ func (ntc *NumberToCurrency) Perform(n float64) string {
 
 	s := strings.Split(strconv.FormatFloat(parsed_value, 'f', ntc.precision, 64), ".")
 
-	gt := group_in_thousands(s[0])
+	gt := groupInThousands(s[0])
 	fp_final := strings.Join(gt, ntc.delimiter)
 
 	final_value := fmt.Sprintf("%s%s%s%s", ntc.unit, fp_final, ntc.separator, s[1])

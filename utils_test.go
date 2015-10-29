@@ -1,14 +1,14 @@
-package gonumbers
+package gonumbers_test
 
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/hgsigner/gonumbers"
 )
 
 func Test_GroupInThousands(t *testing.T) {
 
-	a := assert.New(t)
+	//a := assert.New(t)
 
 	tests := []struct {
 		in        string
@@ -34,25 +34,25 @@ func Test_GroupInThousands(t *testing.T) {
 	}
 
 	for _, item := range tests {
-		a.Equal(item.out, group_in_thousands(item.in))
+		assert(t, item.out, gonumbers.GroupInThousands(item.in))
 	}
 
 }
 
 func Test_RoundedNumber(t *testing.T) {
-	a := assert.New(t)
-	a.Equal("490000", rounded_number(489939, 2))
+	//a := assert.New(t)
+	assert(t, "490000", gonumbers.RoundedNumber(489939, 2))
 }
 
 func Test_RoundedWithPrecision(t *testing.T) {
-	a := assert.New(t)
-	a.Equal(1.2, round_with_precision(1.2000000000000002, 3))
-	a.Equal(1.27, round_with_precision(1.267800001, 2))
-	a.Equal(1.268, round_with_precision(1.267800001, 3))
+	//a := assert.New(t)
+	assert(t, 1.2, gonumbers.RoundWithPrecision(1.2000000000000002, 3))
+	assert(t, 1.27, gonumbers.RoundWithPrecision(1.267800001, 2))
+	assert(t, 1.268, gonumbers.RoundWithPrecision(1.267800001, 3))
 }
 
 func Test_DigtsCount(t *testing.T) {
-	a := assert.New(t)
-	a.Equal(6, digits_count(123456))
-	a.Equal(10, digits_count(1234567890))
+	//a := assert.New(t)
+	assert(t, 6, gonumbers.DigitsCount(123456))
+	assert(t, 10, gonumbers.DigitsCount(1234567890))
 }
