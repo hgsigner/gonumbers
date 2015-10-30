@@ -188,5 +188,5 @@ gonumbers.DigitsSize(int) // Sets the number of digits of the second part of the
 - - -
 For more information, please refer to the [docs.](https://godoc.org/github.com/hgsigner/gonumbers)
 - - -
-##Licensing
-You can use or modify it to meet your needs.
+##Licensing:
+This package is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
