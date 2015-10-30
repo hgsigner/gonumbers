@@ -10,6 +10,8 @@ $ go get github.com/hgsigner/gonumbers
 
 ##Usage:
 
+###- Number to Currency:
+
 ```go
 package main
 
@@ -23,40 +25,8 @@ func main(){
 	ntc.Options(gonumbers.Precision(2))
 	ntc_final := ntc.Perform(1234567890.506)
 	ftm.Println(ntc_final) // "$1,234,567,890.51"
-
-	ntd := gonumbers.ToDelimiter()
-	ntd.Options(gonumbers.Separator("."), gonumbers.Delimiter(","))
-	ntd_final := ntd.Perform(1234567890.506)
-	ftm.Println(ntd_final) // "1,234,567,890.506"
-
-	nth := gonumbers.ToHuman()
-	nth.Options(gonumbers.Separator(","), gonumbers.Precision(2))
-	nth_final := nth.Perform(489939)
-	ftm.Println(nth_final) // "489,9 Thousand"
-	
-	ntp := gonumbers.ToPercentage()
-	ntp.Options(gonumbers.Separator(","), gonumbers.Delimiter("."))
-	ntp_final := ntp.Perform(1000)
-	ftm.Println(ntp_final) // "1.000,000%"
-
-	ntph := gonumbers.ToPhone()
-	ntph.Options(gonumbers.CountryCode("1"))
-	ntph_final, err := ntph.Perform(1235551234)
-	if err != nil{
-		fmt.Println(err)
-	}
-	ftm.Println(ntph_final) // "+1-123-555-1234"
-
-	nths := gonumbers.ToHumanSize()
-	nths_final, err := nths.Perform(1235551234)
-	if err != nil{
-		fmt.Println(err)
-	}
-	ftm.Println(nths_final) // "1.15 GB"
 }
 ```
-
-##Number to Currency:
 
 **Options:**
 
@@ -70,7 +40,23 @@ gonumbers.Separator(string)
 gonumbers.Delimiter(string) 
 ```
 
-##Number to Delimiter:
+###- Number to Delimiter:
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/hgsigner/gonumbers"
+)
+
+func main(){
+	ntd := gonumbers.ToDelimiter()
+	ntd.Options(gonumbers.Separator("."), gonumbers.Delimiter(","))
+	ntd_final := ntd.Perform(1234567890.506)
+	ftm.Println(ntd_final) // "1,234,567,890.506"
+}
+```
 
 **Options:**
 
@@ -80,7 +66,23 @@ gonumbers.Delimiter(string)
 gonumbers.Separator(string) 
 ```
 
-##Number to Human:
+###- Number to Human:
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/hgsigner/gonumbers"
+)
+
+func main(){
+	nth := gonumbers.ToHuman()
+	nth.Options(gonumbers.Separator(","), gonumbers.Precision(2))
+	nth_final := nth.Perform(489939)
+	ftm.Println(nth_final) // "489,9 Thousand"
+}
+```
 
 **Options:**
 
@@ -90,7 +92,25 @@ gonumbers.Precision(int)
 gonumbers.Separator(string) 
 ```
 
-##Number to Human Size:
+###- Number to Human Size:
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/hgsigner/gonumbers"
+)
+
+func main(){
+	nths := gonumbers.ToHumanSize()
+	nths_final, err := nths.Perform(1235551234)
+	if err != nil{
+		fmt.Println(err)
+	}
+	ftm.Println(nths_final) // "1.15 GB"
+}
+```
 
 **Options:**
 
@@ -102,7 +122,23 @@ gonumbers.Precision(int) // Sets precision of the number (default => 3).
 gonumbers.Prefix(string) // Defines if it is binary or si (default => binary)
 ```
 
-##Number to Percentage:
+###- Number to Percentage:
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/hgsigner/gonumbers"
+)
+
+func main(){
+	ntp := gonumbers.ToPercentage()
+	ntp.Options(gonumbers.Separator(","), gonumbers.Delimiter("."))
+	ntp_final := ntp.Perform(1000)
+	ftm.Println(ntp_final) // "1.000,000%"
+}
+```
 
 **Options:**
 
@@ -114,7 +150,26 @@ gonumbers.Separator(string):
 gonumbers.Delimiter(string):
 ```
 
-##Number to Phone:
+###- Number to Phone:
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/hgsigner/gonumbers"
+)
+
+func main(){
+	ntph := gonumbers.ToPhone()
+	ntph.Options(gonumbers.CountryCode("1"))
+	ntph_final, err := ntph.Perform(1235551234)
+	if err != nil{
+		fmt.Println(err)
+	}
+	ftm.Println(ntph_final) // "+1-123-555-1234"
+}
+```
 
 **Options:**
 
