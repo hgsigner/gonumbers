@@ -1,4 +1,4 @@
-#GoNumbers [![Build Status](https://travis-ci.org/hgsigner/gonumbers.svg?branch=master)](https://travis-ci.org/hgsigner/gonumbers) [![GoDoc](https://godoc.org/github.com/hgsigner/gonumbers?status.svg)](https://godoc.org/github.com/hgsigner/gonumbers)
+# GoNumbers [![Build Status](https://travis-ci.org/hgsigner/gonumbers.svg?branch=master)](https://travis-ci.org/hgsigner/gonumbers) [![GoDoc](https://godoc.org/github.com/hgsigner/gonumbers?status.svg)](https://godoc.org/github.com/hgsigner/gonumbers)
 
 GoNumbers is an implementation of number helpers for Go-lang. This project is inspired by the ruby library ActiveSupport::NumberHelper.
 
